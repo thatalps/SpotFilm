@@ -1,3 +1,7 @@
+package SpotFilm.classe;
+
+import java.util.Date;
+
 public class Avaliacao
 {
     private Date dataCriacao;

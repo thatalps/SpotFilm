@@ -1,3 +1,5 @@
+package SpotFilm.classe;
+
 public abstract class Admin
 {
 

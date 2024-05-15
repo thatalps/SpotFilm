@@ -1,10 +1,14 @@
+package SpotFilm.classe;
+
+import java.util.Date;
+
 public class ListaDeFilmes
 {
     private Date dataCriacao;
     private Date dataAtualizacao;
-    private string nome;
+    private String nome;
 
-    public ListaDeFilmes(Date dataCriacao, Date dataAtualizacao, string nome) {
+    public ListaDeFilmes(Date dataCriacao, Date dataAtualizacao, String nome) {
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
         this.nome = nome;
@@ -18,7 +22,7 @@ public class ListaDeFilmes
         return dataAtualizacao;
     }
 
-    public string getNome() {
+    public String getNome() {
         return nome;
     }
 }
