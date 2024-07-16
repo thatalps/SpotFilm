@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom'
+import { Navbar } from '@/components/Navbar.tsx'
+import { Header } from '@/components/header/Header.tsx'
 
 export function AppLayout() {
   return (
-    <>
-      <div>App Layout</div>
-      <head>Header</head>
+    <div className={'text-gray-200 bg-darkBlue h-screen'}>
+      <Navbar />
+      <Header />
       <Outlet />
-      <footer>Footer</footer>
-    </>
+    </div>
   )
 }

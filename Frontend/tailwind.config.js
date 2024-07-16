@@ -23,6 +23,7 @@ module.exports = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        darkBlue: '#000D14',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
@@ -71,6 +72,15 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      backgroundImage: {
+        'header-background': 'url(./src/assets/backgroundHeader.png)',
+      },
+      spacing: {
+        'body-width': '75rem',
+      },
+    },
+    fontFamily: {
+      'josefin-sans': ['Josefin Sans', 'sans-serif'],
     },
   },
   plugins: [require('tailwindcss-animate')],

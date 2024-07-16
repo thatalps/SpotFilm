@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Login } from '@/pages/account/Login.tsx'
 import Account from '@/pages/account/Account.tsx'
 import { Signup } from '@/pages/account/Signup.tsx'
-import Home from '@/pages/home/Home.tsx'
-import { Profile } from '@/pages/profile/Profile.tsx'
+import Home from '@/pages/appLayout/Home.tsx'
+import { Profile } from '@/pages/appLayout/Profile.tsx'
 import { AppLayout } from '@/pages/appLayout/AppLayout.tsx'
 
 export function AppRoutes() {
@@ -16,7 +16,7 @@ export function AppRoutes() {
         </Route>
 
         <Route element={<AppLayout />}>
-          <Route path={'home'} element={<Home />} />
+          <Route path={''} element={<Home />} />
           <Route path={'profile'} element={<Profile />} />
         </Route>
       </Routes>
