@@ -76,7 +76,7 @@ module.exports = {
         'header-background': 'url(./src/assets/backgroundHeader.png)',
       },
       spacing: {
-        'body-width': '75rem',
+        'body-width': '60rem',
       },
     },
     fontFamily: {

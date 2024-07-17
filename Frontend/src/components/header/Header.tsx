@@ -15,12 +15,12 @@ export function Header() {
   return (
     <div className={'bg-header-background min-h-[400px] pt-[5%]'}>
       <div className={'body-spacing flex flex-col gap-3'}>
-        <h1 className={'text-4xl font-josefin-sans font-bold'}>Bem Vindo!</h1>
+        <h1 className={'text-6xl font-josefin-sans font-bold'}>Bem Vindo!</h1>
         <p className={'text-base'}>
           Diversos filmes, maneiros, diversos e tops
         </p>
 
-        <div className={'max-w-96 text-black '}>
+        <div className={'max-w-96 text-black z-10'}>
           <Popover className={'w-full'}>
             <PopoverTrigger className={'w-full'}>
               <div className="flex items-center border-b px-3 bg-white rounded-md">
