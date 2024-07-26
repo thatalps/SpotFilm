@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog.tsx'
 import { UserComment } from '@/components/Comments/UserComment.tsx'
-import {AllComments} from "@/components/Comments/AllComments.tsx";
+import { AllComments } from '@/components/Comments/AllComments.tsx'
 interface ICardMovie {
   name: string
   rating: number
@@ -78,8 +78,8 @@ export function CardMovie({ rating, name, imgSource }: ICardMovie) {
             </div>
 
             <DialogDescription className={'mx-10 flex flex-col '}>
-                <AllComments/>
-                <UserComment />
+              <AllComments />
+              <UserComment />
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

@@ -27,7 +27,7 @@ export function MovieSection({ name }: IMovieSection) {
         <CarouselContent>
           {Array.from({ length: 8 }, () => {
             return (
-              <CarouselItem className="basis-1/4 h-[440px]">
+              <CarouselItem className="basis-2/9 h-[440px]">
                 <CardMovie
                   name={'Frozen II'}
                   rating={2}

@@ -3,7 +3,7 @@ import { Login } from '@/pages/account/Login.tsx'
 import Account from '@/pages/account/Account.tsx'
 import { Signup } from '@/pages/account/Signup.tsx'
 import Home from '@/pages/appLayout/Home.tsx'
-import { Profile } from '@/pages/appLayout/Profile.tsx'
+import { Profile } from '@/pages/appLayout/Profile/Profile.tsx'
 import { AppLayout } from '@/pages/appLayout/AppLayout.tsx'
 
 export function AppRoutes() {

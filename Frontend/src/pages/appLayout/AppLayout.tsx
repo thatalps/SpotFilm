@@ -4,9 +4,8 @@ import { Header } from '@/components/header/Header.tsx'
 
 export function AppLayout() {
   return (
-    <div className={'text-gray-200 bg-darkBlue h-[100%]'}>
+    <div className={'text-gray-200 bg-darkBlue min-h-screen'}>
       <Navbar />
-      <Header />
       <Outlet />
     </div>
   )
