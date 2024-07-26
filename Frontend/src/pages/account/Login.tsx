@@ -1,4 +1,3 @@
-import { Input } from '@/components/ui/input.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
 import { Link } from 'react-router-dom'
@@ -8,6 +7,7 @@ export function Login() {
   return (
     <div className={'flex items-center m-auto flex-col gap-5'}>
       <h1 className={'font-josefin-sans text-6xl font-bold'}>Filme Mania</h1>
+      <h2 className={'text-xl'}>Tela de login</h2>
 
       <form className={'flex items-start  m-auto flex-col gap-3 w-full'}>
         <InputsLabel
