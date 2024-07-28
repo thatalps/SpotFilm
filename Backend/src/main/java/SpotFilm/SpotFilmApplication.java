@@ -1,42 +1,48 @@
 package SpotFilm;
-import SpotFilm.model.Comentario;
-import SpotFilm.repository.ComentarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import SpotFilm.model.Usuario;
+import SpotFilm.repository.UsuarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-public class SpotFilmApplication implements CommandLineRunner{
+@SpringBootApplication
+public class SpotFilmApplication {
 
-	@Autowired
-	private ComentarioRepository repository;
+	private static final Logger log = LoggerFactory.getLogger(SpotFilmApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpotFilmApplication.class, args);
+		SpringApplication.run(SpotFilmApplication.class);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
+	@Bean
+	public CommandLineRunner demo(UsuarioRepository repository) {
+		return (args) -> {
+			// save a few customers
+			repository.save(new Usuario(1, "Jack", "Jack_email@hotmail.com", "123456", LocalDate.now(), 1, 2));
+			repository.save(new Usuario(0, "Chloe", "Chloe_email@hotmail.com", "654321", LocalDate.now(), 1, 2));
 
-		repository.deleteAll();
+			// fetch all customers
+			log.info("Users found with findAll():");
+			log.info("-------------------------------");
+			repository.findAll().forEach(customer -> {
+				log.info(customer.toString());
+			});
+			log.info("");
 
-		// save a couple of customers
-		repository.save(new Comentario(LocalDateTime.now(), "Comentário Daora muito legal", 1, 1));
-		repository.save(new Comentario(LocalDateTime.now(), "Comentário Legal", 1, 2));
+			// fetch an individual customer by ID
+			Usuario customer = repository.findById(1L);
+			log.info("Usuario found with findById(1L):");
+			log.info("--------------------------------");
+			log.info(customer.toString());
+			log.info("");
 
-		// fetch all customers
-		System.out.println("Comentários found with findAll():");
-		System.out.println("-------------------------------");
-		for (Comentario comentario : repository.findAll()) {
-			System.out.println(comentario);
-		}
-		System.out.println();
-
+		};
 	}
 
 }

@@ -1,58 +1,8 @@
 databaseChangeLog:
-  ################ criação de sequences
-  - changeSet:
-      id: 1-createSequence-usuario
-      author: thaissa
-      changes:
-        - createSequence:
-            dataType: int
-            incrementBy: 1
-            minValue: 1
-            ordered: true
-            schemaName: BancoSpotFilm
-            sequenceName: seq_id_usuario
-            startValue: 1
-  - changeSet:
-      id: 2-createSequence-lista
-      author: thaissa
-      changes:
-        - createSequence:
-            dataType: int
-            incrementBy: 1
-            minValue: 1
-            ordered: true
-            schemaName: BancoSpotFilm
-            sequenceName: seq_id_lista
-            startValue: 1
-  - changeSet:
-      id: 3-createSequence-avaliação
-      author: thaissa
-      changes:
-        - createSequence:
-            dataType: int
-            incrementBy: 1
-            minValue: 1
-            ordered: true
-            schemaName: BancoSpotFilm
-            sequenceName: seq_id_avaliacao
-            startValue: 1
-  - changeSet:
-      id: 4-createSequence-comentario
-      author: thaissa
-      changes:
-        - createSequence:
-            dataType: int
-            incrementBy: 1
-            minValue: 1
-            ordered: true
-            schemaName: BancoSpotFilm
-            sequenceName: seq_id_comentario
-            startValue: 1
-
   ################ criação de tabelas
   #tabela usuario
   - changeSet:
-      id: 5-tabela-usuario
+      id: 1-tabela-usuario
       author: thaissa
       changes:
         - createTable:
@@ -62,7 +12,6 @@ databaseChangeLog:
                   name: id_usuario
                   type: int
                   autoIncrement: true
-                  valueComputed: seq_id_usuario
                   constraints:
                     primaryKey: true
                     primaryKeyName: pk_id_usuario
@@ -84,27 +33,28 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: data_nascimento
-                  type: varchar(100)
+                  type: date
                   constraints:
                     nullable: false
               - column:
                   name: genero_preferido1
-                  type: varchar(100)
+                  type: int
                   constraints:
                     nullable: false
               - column:
                   name: genero_preferido2
-                  type: varchar(100)
+                  type: int
                   constraints:
                     nullable: false
               - column:
                   name: admin
                   type: BINARY(1)
+                  defaultValueNumeric: "0"
                   constraints:
                     nullable: false
   #tabela lista
   - changeSet:
-      id: 6-tabela-lista
+      id: 2-tabela-lista
       author: thaissa
       changes:
         - createTable:
@@ -114,7 +64,6 @@ databaseChangeLog:
                   name: id_lista
                   type: int
                   autoIncrement: true
-                  valueComputed: seq_id_lista
                   constraints:
                     primaryKey: true
                     primaryKeyName: pk_id_lista
@@ -131,9 +80,10 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_id_usuario
                     references: usuario (id_usuario)
+
   #tabela item lista
   - changeSet:
-      id: 7-tabela-itemLista
+      id: 3-tabela-itemLista
       author: thaissa
       changes:
         - createTable:
@@ -148,29 +98,10 @@ databaseChangeLog:
               - column:
                   name: id_filme
                   type: int
-  #tabela comentario
-  - changeSet:
-      id: 8-tabela-comentario
-      author: thaissa
-      changes:
-        - createTable:
-            tableName: comentario
-            columns:
-              - column:
-                  name: id_comentario
-                  type: int
-                  autoIncrement: true
-                  valueComputed: seq_id_comentario
-                  constraints:
-                    primaryKey: true
-                    primaryKeyName: fk_id_comentario
-                    nullable: false
-              - column:
-                  name: descricao
-                  type: varchar(100)
+
   #tabela aavaliacao
   - changeSet:
-      id: 9-tabela-avaliacao
+      id: 4-tabela-avaliacao
       author: thaissa
       changes:
         - createTable:
@@ -178,29 +109,29 @@ databaseChangeLog:
             columns:
               - column:
                   name: id_avaliacao
-                  type: int
+                  type: INT
                   autoIncrement: true
-                  valueComputed: seq_id_avaliacao
                   constraints:
                     primaryKey: true
                     primaryKeyName: fk_id_avaliacao
-                    nullable: false
               - column:
                   name: id_filme
-                  type: int
+                  type: INT
                   constraints:
                     nullable: false
               - column:
                   name: id_usuario
-                  type: int
+                  type: INT
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_id_usuario
-                    references: usuario (id_usuario)
               - column:
                   name: id_comentario
-                  type: int
+                  type: INT
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_id_comentario
-                    references: usuario (id_comentario)
+        - addForeignKeyConstraint:
+            baseTableName: avaliacao
+            baseColumnNames: id_usuario
+            constraintName: fk_id_usuario_avaliacao
+            referencedTableName: usuario
+            referencedColumnNames: id_usuario

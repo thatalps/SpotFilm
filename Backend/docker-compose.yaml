@@ -8,4 +8,4 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: BancoSpotFilm
     ports:
-      - "8080:8080"
+      - "3306:3306"
