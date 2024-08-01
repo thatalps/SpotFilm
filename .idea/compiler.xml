@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="SpotFilm" options="-parameters" />
+      <module name="SpotFilm" options="" />
     </option>
   </component>
 </project>
