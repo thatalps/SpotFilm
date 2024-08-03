@@ -115,6 +115,11 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: fk_id_avaliacao
               - column:
+                  name: quantidade_estrelas
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
                   name: id_filme
                   type: INT
                   constraints:

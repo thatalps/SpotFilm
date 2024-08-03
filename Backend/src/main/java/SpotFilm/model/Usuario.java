@@ -3,6 +3,7 @@ package SpotFilm.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Table(name = "usuario")
@@ -28,6 +29,9 @@ public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
 
     @Column(name = "genero_preferido2")
     private Integer generoPreferido2;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Avaliacao> avaliacoes;
 
     protected Usuario(){
         super(0);

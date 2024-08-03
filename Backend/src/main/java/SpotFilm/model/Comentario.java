@@ -5,17 +5,18 @@ import java.time.*;
 import java.util.*;
 
 public class Comentario {
+
     @Id
     public String id;
 
     public LocalDateTime dataCriacao;
-    public String descricao;
+    public String conteudo;
     public int idUsuario;
     public int idAvaliacao;
 
     public Comentario(LocalDateTime dataCriacao, String descricao, int idUsuario, int idAvaliacao) {
         this.dataCriacao = dataCriacao;
-        this.descricao = descricao;
+        this.conteudo = descricao;
         this.idUsuario = idUsuario;
         this.idAvaliacao = idAvaliacao;
     }
@@ -24,7 +25,7 @@ public class Comentario {
     public String toString() {
         return String.format(
                 "Comentário[id=%s, dataCriacao='%s', descricao='%s', idUsuario='%s', idAvaliacao='%s']",
-                id, dataCriacao, descricao, idUsuario, idAvaliacao);
+                id, dataCriacao, conteudo, idUsuario, idAvaliacao);
     }
 
 }
