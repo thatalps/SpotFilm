@@ -17,8 +17,7 @@ public class ApiService {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiService.class);
 
-    public Filme getFilmePorId(long id) {
-        String url = String.format("https://api.themoviedb.org/3/movie/%d?language=pt-BR&api_key=%s", id, key);
+    public Filme getFilme(String url) {
         try {
             ResponseEntity<Filme> responseEntity = restTemplate.getForEntity(url, Filme.class);
             logger.info("Successfully retrieved data from TMDb");
@@ -29,20 +28,15 @@ public class ApiService {
         }
     }
 
-    public Filme getFilmes(String url, String titulo){
-        try {
-            ResponseEntity<Filme> responseEntity = restTemplate.getForEntity(url, Filme.class);
-            logger.info("Successfully retrieved data from TMDb");
-            return responseEntity.getBody();
-        } catch (Exception e){
-            logger.error("Failed to retrieve data from TMDb", e);
-            return null;
-        }
+    public Filme getFilmePorId(long id) {
+        String url = String.format("https://api.themoviedb.org/3/movie/%d?language=pt-BR&api_key=%s", id, key);
+        Filme filme = getFilme(url);
+        return filme;
     }
 
-    public Filme getFilmesPorTitulo(String titulo){
-        String url = string.format("https://api.themoviedb.org/3/search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
-        Filme filme = getFilmes(url, titulo);
+    public Filme getFilmesPorTitulo(String titulo) {
+        String url = String.format("https://api.themoviedb.org/3/search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
+        Filme filme = getFilme(url);
         return filme;
     }
 }

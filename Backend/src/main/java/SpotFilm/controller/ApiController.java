@@ -23,7 +23,7 @@ public class ApiController {
     public ResponseEntity<Filme> getFilmePorId(Long id) {
         try {
             Filme data = apiService.getFilmePorId(id);
-            if (data == null ) {
+            if (data == null) {
                 logger.warn("Received empty or null data from ApiService");
                 return ResponseEntity.noContent().build();
             }
@@ -38,7 +38,7 @@ public class ApiController {
     public ResponseEntity<Filme> getFilmesPorTitulo(String titulo) {
         try {
             Filme data = apiService.getFilmesPorTitulo(titulo);
-            if (data == null){
+            if (data == null) {
                 logger.warn("Received empty or null data from ApiService");
                 return ResponseEntity.noContent().build();
             }
