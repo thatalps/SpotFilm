@@ -28,4 +28,21 @@ public class ApiService {
             return null;
         }
     }
+
+    public Filme getFilmes(String url, String titulo){
+        try {
+            ResponseEntity<Filme> responseEntity = restTemplate.getForEntity(url, Filme.class);
+            logger.info("Successfully retrieved data from TMDb");
+            return responseEntity.getBody();
+        } catch (Exception e){
+            logger.error("Failed to retrieve data from TMDb", e);
+            return null;
+        }
+    }
+
+    public Filme getFilmesPorTitulo(String titulo){
+        String url = string.format("https://api.themoviedb.org/3/search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
+        Filme filme = getFilmes(url, titulo);
+        return filme;
+    }
 }

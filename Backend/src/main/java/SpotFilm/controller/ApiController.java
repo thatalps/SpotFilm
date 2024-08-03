@@ -34,4 +34,19 @@ public class ApiController {
         }
     }
 
+    @GetMapping("/get_filmes_por_titulo")
+    public ResponseEntity<Filme> getFilmesPorTitulo(String titulo) {
+        try {
+            Filme data = apiService.getFilmesPorTitulo(titulo);
+            if (data == null){
+                logger.warn("Received empty or null data from ApiService");
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching data", e);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
 }
