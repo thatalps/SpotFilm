@@ -1,5 +1,5 @@
 import { Input } from '@/components/ui/input.tsx'
-import {HTMLInputTypeAttribute} from "react";
+import { HTMLInputTypeAttribute } from 'react'
 
 interface IInputsLabel {
   id: string
@@ -23,3 +23,4 @@ export function InputsLabel({ id, placeholder, label, type }: IInputsLabel) {
     </>
   )
 }
+//
