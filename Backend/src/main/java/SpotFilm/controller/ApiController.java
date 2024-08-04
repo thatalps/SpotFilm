@@ -1,6 +1,7 @@
 package SpotFilm.controller;
 
 import SpotFilm.model.Filme;
+import SpotFilm.model.Genero;
 import SpotFilm.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,4 +50,33 @@ public class ApiController {
         }
     }
 
+    @GetMapping("/get_filmes_por_genero")
+    public ResponseEntity<Filme> getFilmesPorGenero(int genero) {
+        try {
+            Filme data = apiService.getFilmesPorGenero(genero);
+            if (data == null) {
+                logger.warn("Received empty or null data from ApiService");
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching data", e);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @GetMapping("/get_lista_de_generos")
+    public ResponseEntity<Genero> getListaGenero() {
+        try {
+            Genero data = apiService.getListaGenero();
+            if (data == null) {
+                logger.warn("Received empty or null data from ApiService");
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching data", e);
+            return ResponseEntity.noContent().build();
+        }
+    }
 }
