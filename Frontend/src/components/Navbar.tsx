@@ -8,8 +8,12 @@ import { MenubarTrigger } from '@radix-ui/react-menubar'
 import { NavLink } from '@/components/NavLink.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { GlobalContext } from '@/context/GlobalContext.tsx'
 
 export function Navbar() {
+  const { user } = useContext(GlobalContext)
+
   return (
     <div className={'bg-darkBlue '}>
       <div
@@ -22,10 +26,6 @@ export function Navbar() {
         </Link>
 
         <div className={'flex gap-10  items-center'}>
-          <NavLink to={'./profile'}>Perfil</NavLink>
-          <NavLink to={'./'}>Todos</NavLink>
-          <NavLink to={'./'}>Para você</NavLink>
-
           <Menubar className={'bg-transparent border-0'}>
             <MenubarMenu>
               <MenubarTrigger>
@@ -38,6 +38,18 @@ export function Navbar() {
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
+
+          {user?.name.length !== undefined ? (
+            <>
+              <NavLink to={'./'}>Para você</NavLink>
+              <NavLink to={'./profile'}>Perfil</NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to={'./account/login'}>Logar</NavLink>
+              <NavLink to={'./account/signup'}>Cadastrar</NavLink>
+            </>
+          )}
         </div>
       </div>
     </div>

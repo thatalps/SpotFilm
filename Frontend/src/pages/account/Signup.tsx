@@ -8,46 +8,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
-import { z } from 'zod'
 import { Control, FieldValues, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { TSignup } from '@/types/types.tsx'
+import { SignupSchema } from '@/types/schemas.tsx'
 import { ControlledInput } from '@/pages/account/components/ControlledInput.tsx'
-
-const SignupSchema = z
-  .object({
-    name: z
-      .string({ required_error: 'Campo obrigatório' })
-      .min(3, 'Minimo de 3 letras')
-      .max(20, 'Máximo de 20 letras'),
-    birthDate: z.coerce
-      .date({
-        errorMap: (issue, { defaultError }) => ({
-          message:
-            issue.code === z.ZodIssueCode.invalid_date
-              ? 'Data inválida'
-              : defaultError,
-        }),
-      })
-      .refine((date) => {
-        return date <= new Date(Date.now())
-      }, 'Data inválida'),
-    email: z
-      .string({ required_error: 'Campo obrigatório' })
-      .email({ message: 'Email inválido' }),
-    password: z
-      .string({ required_error: 'Campo obrigatório' })
-      .regex(/(?=.*\d)/, 'Deve conter ao menos um dígito')
-      .regex(/(?=.*[a-z])/, 'Deve conter ao menos uma letra minúscula')
-      .regex(/(?=.*[A-Z])/, 'Deve conter ao menos uma letra maiúscula'),
-    favGenre1: z.number({ required_error: 'Campo obrigatório' }),
-    favGenre2: z.number({ required_error: 'Campo obrigatório' }),
-  })
-  .refine((data) => data.favGenre1 !== data.favGenre2, {
-    path: ['favGenre1'],
-    message: 'Devem ser diferentes',
-  })
-
-export type TSignup = z.infer<typeof SignupSchema>
+import { signupUser } from '@/api/user/signupUser.ts'
+import { toast, Toaster } from 'sonner'
 
 export function Signup() {
   const {
@@ -59,8 +26,14 @@ export function Signup() {
     resolver: zodResolver(SignupSchema),
   })
 
-  function handleSignupSubmit(data: TSignup) {
-    console.log(data)
+  async function handleSignupSubmit(data: TSignup) {
+    try {
+      console.log(data)
+      await signupUser(data)
+      toast.success('Conta criada com sucesso!')
+    } catch (e) {
+      toast.error(e.message)
+    }
   }
 
   return (
@@ -166,6 +139,8 @@ export function Signup() {
             Entrar
           </Link>
         </div>
+
+        <Toaster richColors />
       </div>
     </div>
   )

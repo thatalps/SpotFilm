@@ -1,20 +1,16 @@
 import { Button } from '@/components/ui/button.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ControlledInput } from '@/pages/account/components/ControlledInput.tsx'
 import { Control, FieldValues, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-
-const LoginSchema = z.object({
-  name: z
-    .string({ required_error: 'Campo obrigatório' })
-    .min(3, 'Minimo de 3 letras')
-    .max(20, 'Máximo de 20 letras'),
-  password: z.string({ required_error: 'Campo obrigatório' }),
-})
-
-type TLogin = z.infer<typeof LoginSchema>
+import { LoginSchema } from '@/types/schemas.tsx'
+import { TLogin } from '@/types/types.tsx'
+import { LoginUser } from '@/api/user/loginUser.ts'
+import { toast, Toaster } from 'sonner'
+import { getUserProfile } from '@/api/user/getUserProfile.ts'
+import { useContext } from 'react'
+import { GlobalContext } from '@/context/GlobalContext.tsx'
 
 export function Login() {
   const {
@@ -24,9 +20,23 @@ export function Login() {
   } = useForm<TLogin>({
     resolver: zodResolver(LoginSchema),
   })
+  const navigate = useNavigate()
+  const { setUserData } = useContext(GlobalContext)
 
-  function handleSignupSubmit(data: TLogin) {
-    console.log(data)
+  async function handleLoginSubmit(data: TLogin) {
+    try {
+      const { id} = await LoginUser(data)
+      const userProfile = await getUserProfile({ id })
+      console.log(userProfile)
+      setUserData(userProfile)
+      toast.success('Login realizado com sucesso!', { duration: 2000 })
+      navigate('/')
+    } catch (e) {
+      if (e instanceof Error) {
+        toast.error(e.message, { duration: 2000 })
+        console.log(e)
+      }
+    }
   }
   return (
     <div className={'flex m-auto h-screen relative'}>
@@ -42,14 +52,14 @@ export function Login() {
 
         <form
           className={'flex items-start  m-auto flex-col gap-3 w-full'}
-          onSubmit={handleSubmit((data) => handleSignupSubmit(data))}
+          onSubmit={handleSubmit((data) => handleLoginSubmit(data))}
         >
           <ControlledInput
             control={control as Control<FieldValues>}
-            label={'Nome'}
-            id={'name'}
-            placeholder={'Insira seu nome'}
-            errorMessage={errors.name?.message}
+            label={'Email'}
+            id={'email'}
+            placeholder={'Insira seu email'}
+            errorMessage={errors.email?.message}
           />
 
           <ControlledInput
@@ -78,6 +88,8 @@ export function Login() {
           <Link to={'/account/signup'} className={'font-bold'}>
             Cadastre-se
           </Link>
+
+          <Toaster richColors />
         </div>
       </div>
     </div>
