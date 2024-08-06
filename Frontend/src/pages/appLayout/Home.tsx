@@ -6,8 +6,8 @@ function Home() {
     <>
       <Header />
       <div className={'body-spacing mt-[-40px] flex flex-col gap-10'}>
-        <MovieSection name={'Animação'} />
-        <MovieSection name={'Comédia'} />
+        <MovieSection name={'Ação'} id={28} />
+        <MovieSection name={'Aventura'} id={12} />
       </div>
     </>
   )

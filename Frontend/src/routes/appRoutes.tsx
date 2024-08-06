@@ -5,6 +5,7 @@ import { Signup } from '@/pages/account/Signup.tsx'
 import Home from '@/pages/appLayout/Home.tsx'
 import { Profile } from '@/pages/appLayout/Profile/Profile.tsx'
 import { AppLayout } from '@/pages/appLayout/AppLayout.tsx'
+import { AllMoviesPage } from '@/pages/AllMoviesPage.tsx'
 
 export function AppRoutes() {
   return (
@@ -19,6 +20,8 @@ export function AppRoutes() {
           <Route path={''} element={<Home />} />
           <Route path={'profile'} element={<Profile />} />
         </Route>
+
+        <Route path={'movies'} element={<AllMoviesPage />} />
       </Routes>
     </BrowserRouter>
   )

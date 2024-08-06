@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Select,
   SelectContent,
@@ -25,14 +25,16 @@ export function Signup() {
   } = useForm<TSignup>({
     resolver: zodResolver(SignupSchema),
   })
+  const navigate = useNavigate()
 
   async function handleSignupSubmit(data: TSignup) {
     try {
       console.log(data)
       await signupUser(data)
-      toast.success('Conta criada com sucesso!')
+      toast.success('Conta criada com sucesso!', { duration: 2000 })
+      navigate('/account/login')
     } catch (e) {
-      toast.error(e.message)
+      toast.error(e.message, { duration: 2000 })
     }
   }
 

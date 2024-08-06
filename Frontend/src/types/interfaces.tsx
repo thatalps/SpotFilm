@@ -8,14 +8,14 @@ export interface IGenre {
 }
 
 export interface IMovie {
-  release_date: string
-  poster_path: string
-  vote_average: number
+  release_date: string | null
+  poster_path: string | null
+  vote_average: number | null
   id: number
-  title: string
-  overview: string
-  genres: IGenre[]
-  backdrop_path: string
+  title: string | null
+  overview: string | null
+  genres: IGenre[] | null
+  backdrop_path: string | null
 }
 
 export interface IComment {
@@ -36,4 +36,3 @@ export interface IUserProfile {
   genre1: IGenre
   genre2: IGenre
 }
-
