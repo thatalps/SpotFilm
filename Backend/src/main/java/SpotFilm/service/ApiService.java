@@ -1,13 +1,18 @@
 package SpotFilm.service;
 
+import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.model.Filme;
 import SpotFilm.model.Genero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 @Service
 public class ApiService {
@@ -20,9 +25,22 @@ public class ApiService {
 
     public Filme getFilme(String url) {
         try {
-            ResponseEntity<Filme> responseEntity = restTemplate.getForEntity(url, Filme.class);
+
+            Filme apiResponse = restTemplate.getForObject(url, Filme.class);
             logger.info("Successfully retrieved data from TMDb");
-            return responseEntity.getBody();
+            return apiResponse;
+        } catch (Exception e) {
+            logger.error("Failed to retrieve data from TMDb", e);
+            return null;
+        }
+    }
+
+    public FilmeRespostaApi getFilmes(String url) {
+        try {
+
+            FilmeRespostaApi apiResponse = restTemplate.getForObject(url, FilmeRespostaApi.class);
+            logger.info("Successfully retrieved data from TMDb");
+            return apiResponse;
         } catch (Exception e) {
             logger.error("Failed to retrieve data from TMDb", e);
             return null;
@@ -45,14 +63,14 @@ public class ApiService {
         return getFilme(url);
     }
 
-    public Filme getFilmesPorTitulo(String titulo) {
+    public FilmeRespostaApi getFilmesPorTitulo(String titulo) {
         String url = String.format("https://api.themoviedb.org/3/search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
-        return getFilme(url);
+        return getFilmes(url);
     }
 
-    public Filme getFilmesPorGenero(int generoId) {
+    public FilmeRespostaApi getFilmesPorGenero(int generoId) {
         String url = String.format("https://api.themoviedb.org/3/discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", key, generoId);
-        return getFilme(url);
+        return getFilmes(url);
     }
 
     public Genero getListaGenero(){

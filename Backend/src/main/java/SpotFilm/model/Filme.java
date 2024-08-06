@@ -1,53 +1,81 @@
 package SpotFilm.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-
 public class Filme {
 
-    // Getters e Setters
     @Setter
-    private long id;
+    @Getter
+    @JsonProperty("adult")
+    private boolean adult;
 
     @Setter
-    @JsonProperty("title")
-    private String titulo;
+    @Getter
+    @JsonProperty("backdrop_path")
+    private String backdropPath;
 
     @Setter
+    @Getter
+    @JsonProperty("genre_ids")
+    private List<Integer> genreIds;
+
+    @Setter
+    @Getter
+    @JsonProperty("id")
+    private int id;
+
+    @Setter
+    @Getter
+    @JsonProperty("original_language")
+    private String originalLanguage;
+
+    @Setter
+    @Getter
     @JsonProperty("original_title")
-    private String tituloOriginal;
+    private String originalTitle;
 
     @Setter
+    @Getter
     @JsonProperty("overview")
-    private String sinopse;
+    private String overview;
 
     @Setter
+    @Getter
+    @JsonProperty("popularity")
+    private double popularity;
+
+    @Setter
+    @Getter
+    @JsonProperty("poster_path")
+    private String posterPath;
+
+    @Setter
+    @Getter
+    @JsonProperty("release_date")
+    private String releaseDate;
+
+    @Setter
+    @Getter
+    @JsonProperty("title")
+    private String title;
+
+    @Setter
+    @Getter
+    @JsonProperty("video")
+    private boolean video;
+
+    @Setter
+    @Getter
     @JsonProperty("vote_average")
-    private Double classificacao;
+    private double voteAverage;
 
     @Setter
-    @JsonProperty("genres")
-    private List<Genero> generos;
-
-    // Construtores, getters e setters
-
-    public Filme() {}
-
-    public Filme(String titulo, String tituloOriginal, String sinopse, Double classificacao, List<Genero> generos) {
-        this.titulo = titulo;
-        this.tituloOriginal = tituloOriginal;
-        this.sinopse = sinopse;
-        this.classificacao = classificacao;
-        this.generos = generos;
-    }
+    @Getter
+    @JsonProperty("vote_count")
+    private int voteCount;
 
 }
