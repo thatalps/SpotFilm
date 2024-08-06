@@ -1,3 +1,8 @@
+export interface IMoviesParams {
+  genreId: string | undefined
+  genreName: string | undefined
+}
+
 export interface IDataId {
   id: number
 }

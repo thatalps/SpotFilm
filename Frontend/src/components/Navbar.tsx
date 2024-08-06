@@ -7,12 +7,26 @@ import {
 import { MenubarTrigger } from '@radix-ui/react-menubar'
 import { NavLink } from '@/components/NavLink.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { Link } from 'react-router-dom'
-import { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
+import { getMoviesByGenre } from '@/api/movies/getMoviesByGenre.ts'
+import { IMovie } from '@/types/interfaces.tsx'
+import { toast } from 'sonner'
 
 export function Navbar() {
   const { user } = useContext(GlobalContext)
+  const navigate = useNavigate()
+
+  function getMovies(id: number, label: string) {
+    try {
+      getMoviesByGenre(id).then((res) => {
+        navigate('./movies', { state: { label, movies: res } })
+      })
+    } catch (e) {
+      toast.error('Falha ao carregar os filmes')
+    }
+  }
 
   return (
     <div className={'bg-darkBlue '}>
@@ -33,7 +47,12 @@ export function Navbar() {
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
-                  <NavLink to={''}>Comédia</NavLink>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() => getMovies(1, 'Comédia')}
+                  >
+                    Comédia
+                  </Button>
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
