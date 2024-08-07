@@ -1,6 +1,7 @@
 package SpotFilm.controller;
 
 import SpotFilm.dto.FilmeRespostaApi;
+import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
 import SpotFilm.model.Genero;
 import SpotFilm.service.ApiService;
@@ -35,46 +36,37 @@ public class ApiController {
 
     @GetMapping("/filme/titulo/{titulo}")
     public ResponseEntity<FilmeRespostaApi> getFilmesPorTitulo(@PathVariable String titulo) {
-        try {
-            FilmeRespostaApi data = apiService.getFilmesPorTitulo(titulo);
-            if (data == null) {
-                logger.warn("Received empty or null data from ApiService");
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(data);
-        } catch (Exception e) {
-            logger.error("Error occurred while fetching data", e);
+        FilmeRespostaApi filmes = apiService.getFilmesPorTitulo(titulo);
+        if (filmes == null){
             return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(filmes);
+    }
+
+    @GetMapping("/filme/recomendacao/{titulo}")
+    public ResponseEntity<FilmeRespostaApi> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
+        FilmeRespostaApi filmes = apiService.getRecomendacaoPorFilme(idFilme);
+        if (filmes == null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(filmes);
     }
 
     @GetMapping("/filme/genero/{genero}")
-    public ResponseEntity<FilmeRespostaApi> getFilmesPorGenero(@PathVariable int genero) {
-        try {
-            FilmeRespostaApi data = apiService.getFilmesPorGenero(genero);
-            if (data == null) {
-                logger.warn("Received empty or null data from ApiService");
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(data);
-        } catch (Exception e) {
-            logger.error("Error occurred while fetching data", e);
+    public ResponseEntity<FilmeRespostaApi> getFilmesPorGenero(@PathVariable int idGenero) {
+        FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
+        if (filmes == null){
             return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(filmes);
     }
 
     @GetMapping("/get_lista_de_generos")
-    public ResponseEntity<Genero> getListaGenero() {
-        try {
-            Genero data = apiService.getListaGenero();
-            if (data == null) {
-                logger.warn("Received empty or null data from ApiService");
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(data);
-        } catch (Exception e) {
-            logger.error("Error occurred while fetching data", e);
+    public ResponseEntity<GeneroRespostaApi> getListaGenero() {
+        GeneroRespostaApi generos = apiService.getListaGenero();
+        if (generos == null) {
             return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(generos);
     }
 }

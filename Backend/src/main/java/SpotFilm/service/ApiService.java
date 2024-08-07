@@ -1,6 +1,7 @@
 package SpotFilm.service;
 
 import SpotFilm.dto.FilmeRespostaApi;
+import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
 import SpotFilm.model.Genero;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +48,11 @@ public class ApiService {
         }
     }
 
-    public Genero getGenero(String url) {
+    public GeneroRespostaApi getGenero(String url) {
         try {
-            ResponseEntity<Genero> responseEntity = restTemplate.getForEntity(url, Genero.class);
+            GeneroRespostaApi apiResponse = restTemplate.getForObject(url, GeneroRespostaApi.class);
             logger.info("Successfully retrieved data from TMDb");
-            return responseEntity.getBody();
+            return apiResponse;
         } catch (Exception e) {
             logger.error("Failed to retrieve data from TMDb", e);
             return null;
@@ -68,12 +69,19 @@ public class ApiService {
         return getFilmes(url);
     }
 
+    //recomendações baseadas no genero favorito
     public FilmeRespostaApi getFilmesPorGenero(int generoId) {
         String url = String.format("https://api.themoviedb.org/3/discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", key, generoId);
         return getFilmes(url);
     }
 
-    public Genero getListaGenero(){
+    //recomendações baseadas em um filme
+    public FilmeRespostaApi getRecomendacaoPorFilme(long id) {
+        String url = String.format("https://api.themoviedb.org/3/movie/%d/recommendations?&language=pt-BR&api_key=%s", id, key);
+        return getFilmes(url);
+    }
+
+    public GeneroRespostaApi getListaGenero(){
         String url = String.format("https://api.themoviedb.org/3/genre/movie/list?&language=pt-BR&api_key=%s", key);
         return getGenero(url);
     }
