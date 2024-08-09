@@ -19,12 +19,12 @@ export interface IMovie {
   id: number
   title: string | null
   overview: string | null
-  genres: IGenre[] | null
+  genres_id: IGenre[] | null
   backdrop_path: string | null
 }
 
 export interface IComment {
-  id: number
+  id: number | null
   created_at: Date
   text: string
   rating: number

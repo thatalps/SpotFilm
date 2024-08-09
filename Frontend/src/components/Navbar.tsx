@@ -8,14 +8,13 @@ import { MenubarTrigger } from '@radix-ui/react-menubar'
 import { NavLink } from '@/components/NavLink.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Link, useNavigate } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
 import { getMoviesByGenre } from '@/api/movies/getMoviesByGenre.ts'
-import { IMovie } from '@/types/interfaces.tsx'
 import { toast } from 'sonner'
 
 export function Navbar() {
-  const { user } = useContext(GlobalContext)
+  const { user, logout } = useContext(GlobalContext)
   const navigate = useNavigate()
 
   function getMovies(id: number, label: string) {
@@ -39,11 +38,13 @@ export function Navbar() {
           <h1 className={'font-josefin-sans'}>SpotFilm</h1>
         </Link>
 
-        <div className={'flex gap-10  items-center'}>
+        <div className={'flex gap-3  items-center'}>
           <Menubar className={'bg-transparent border-0'}>
             <MenubarMenu>
-              <MenubarTrigger>
-                <Button variant={'ghost'}>Categorias</Button>
+              <MenubarTrigger asChild>
+                <Button className={'text-base'} variant={'ghost'}>
+                  Categorias
+                </Button>
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
@@ -62,6 +63,13 @@ export function Navbar() {
             <>
               <NavLink to={'./'}>Para você</NavLink>
               <NavLink to={'./profile'}>Perfil</NavLink>
+              <Button
+                className={'text-base'}
+                variant={'ghost'}
+                onClick={() => logout()}
+              >
+                Sair
+              </Button>
             </>
           ) : (
             <>

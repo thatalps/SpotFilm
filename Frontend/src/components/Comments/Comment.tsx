@@ -1,19 +1,18 @@
 import { Stars } from '@/components/Stars.tsx'
+import { IComment } from '@/types/interfaces.tsx'
 
-export function Comment() {
+export function Comment(comment: IComment) {
   return (
     <div className={'w-full flex flex-col gap-1.5'}>
       <div className={'flex gap-2 font-bold text-white'}>
-        <p>Josinete</p>
+        <p>{comment.name}</p>
         <p>•</p>
-        <Stars rating={4} size={14} className={'self-center'} />
+        <Stars rating={comment.rating} size={14} className={'self-center'} />
       </div>
       <textarea
-        placeholder={
-          '"Frozen II" não apenas mantém o charme e o humor que encantaram os fãs do primeiro filme, mas também mergulha mais fundo na mitologia e na história de seus personagens, oferecendo uma narrativa rica em camadas e surpresas emocionantes.'
-        }
+        placeholder={comment.text}
         className={
-          'resize-none w-full p-2 rounded-md h-20 bg-lightBlue placeholder-white'
+          'resize-none w-full p-2 rounded-md h-20 bg-lightBlue placeholder-white overflow-y-scroll no-scrollbar'
         }
         disabled={true}
       />
