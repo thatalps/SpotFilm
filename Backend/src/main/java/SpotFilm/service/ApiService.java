@@ -3,17 +3,12 @@ package SpotFilm.service;
 import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
-import SpotFilm.model.Genero;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 
 @Service
 public class ApiService {
@@ -26,7 +21,6 @@ public class ApiService {
 
     public Filme getFilme(String url) {
         try {
-
             Filme apiResponse = restTemplate.getForObject(url, Filme.class);
             logger.info("Successfully retrieved data from TMDb");
             return apiResponse;
@@ -38,7 +32,6 @@ public class ApiService {
 
     public FilmeRespostaApi getFilmes(String url) {
         try {
-
             FilmeRespostaApi apiResponse = restTemplate.getForObject(url, FilmeRespostaApi.class);
             logger.info("Successfully retrieved data from TMDb");
             return apiResponse;
