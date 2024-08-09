@@ -64,7 +64,7 @@ public class ApiService {
 
     //recomendações baseadas no genero favorito
     public FilmeRespostaApi getFilmesPorGenero(int generoId) {
-        String url = String.format("https://api.themoviedb.org/3/discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", key, generoId);
+        String url = String.format("https://api.themoviedb.org/3/discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", generoId, key);
         return getFilmes(url);
     }
 
