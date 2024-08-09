@@ -16,6 +16,8 @@ public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
+    @Getter
+    @Setter
     private Long id;
 
     @Getter
