@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 @Service
 public class ApiService {
 
+    String urlBase = "https://api.themoviedb.org/3/";
     private final String key = "133200f2eff0ca714a6a577183579cf7";
     @Autowired
     private RestTemplate restTemplate;
@@ -53,29 +54,29 @@ public class ApiService {
     }
 
     public Filme getFilmePorId(long id) {
-        String url = String.format("https://api.themoviedb.org/3/movie/%d?language=pt-BR&api_key=%s", id, key);
+        String url = String.format(urlBase+"movie/%d?language=pt-BR&api_key=%s", id, key);
         return getFilme(url);
     }
 
     public FilmeRespostaApi getFilmesPorTitulo(String titulo) {
-        String url = String.format("https://api.themoviedb.org/3/search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
+        String url = String.format(urlBase+"search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
         return getFilmes(url);
     }
 
     //recomendações baseadas no genero favorito
     public FilmeRespostaApi getFilmesPorGenero(int generoId) {
-        String url = String.format("https://api.themoviedb.org/3/discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", generoId, key);
+        String url = String.format(urlBase+"discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", generoId, key);
         return getFilmes(url);
     }
 
     //recomendações baseadas em um filme
     public FilmeRespostaApi getRecomendacaoPorFilme(long id) {
-        String url = String.format("https://api.themoviedb.org/3/movie/%d/recommendations?&language=pt-BR&api_key=%s", id, key);
+        String url = String.format(urlBase+"movie/%d/recommendations?&language=pt-BR&api_key=%s", id, key);
         return getFilmes(url);
     }
 
     public GeneroRespostaApi getListaGenero(){
-        String url = String.format("https://api.themoviedb.org/3/genre/movie/list?&language=pt-BR&api_key=%s", key);
+        String url = String.format(urlBase+"genre/movie/list?&language=pt-BR&api_key=%s", key);
         return getGenero(url);
     }
 }
