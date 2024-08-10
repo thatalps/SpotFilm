@@ -3,7 +3,6 @@ package SpotFilm.controller;
 import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
-import SpotFilm.model.Genero;
 import SpotFilm.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -43,7 +40,7 @@ public class ApiController {
         return ResponseEntity.ok(filmes);
     }
 
-    @GetMapping("/filme/recomendacao/{titulo}")
+    @GetMapping("/filme/recomendacao/{idFilme}")
     public ResponseEntity<FilmeRespostaApi> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
         FilmeRespostaApi filmes = apiService.getRecomendacaoPorFilme(idFilme);
         if (filmes == null){
@@ -52,7 +49,7 @@ public class ApiController {
         return ResponseEntity.ok(filmes);
     }
 
-    @GetMapping("/filme/genero/{genero}")
+    @GetMapping("/filme/genero/{idGenero}")
     public ResponseEntity<FilmeRespostaApi> getFilmesPorGenero(@PathVariable int idGenero) {
         FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
         if (filmes == null){
