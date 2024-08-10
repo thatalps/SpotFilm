@@ -95,7 +95,20 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!--	  Dependencias swagger -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+
+		<!-- dependencia de criptografia -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

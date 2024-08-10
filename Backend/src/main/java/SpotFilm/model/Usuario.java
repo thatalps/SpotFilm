@@ -1,6 +1,9 @@
 package SpotFilm.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -13,23 +16,39 @@ public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
+    @Getter
+    @Setter
     private Long id;
 
+    @Getter
+    @Setter
     private String nome = "";
 
+    @Getter
+    @Setter
     private String email = "";
 
+    @Getter
+    @Setter
     private String senha = "";
 
+    @Getter
+    @Setter
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
+    @Getter
+    @Setter
     @Column(name = "genero_preferido1")
     private Integer generoPreferido1;
 
+    @Getter
+    @Setter
     @Column(name = "genero_preferido2")
     private Integer generoPreferido2;
 
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "usuario")
     private List<Avaliacao> avaliacoes;
 
@@ -47,26 +66,6 @@ public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
         this.generoPreferido2 = generoPreferido2;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Integer getGeneroFavorito1() {
-        return generoPreferido1;
-    }
-
-    public Integer getGeneroFavorito2() {
-        return generoPreferido2;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
@@ -79,6 +78,12 @@ public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
                 ", generoPreferido2=" + generoPreferido2 +
                 ", Admin=" + getAdmin() +
                 '}';
+    }
+
+    public static boolean autenticarUsuario(String email, String senha, Usuario usuario){
+        BCryptPasswordEncoder criptografar = new BCryptPasswordEncoder();
+        String senhaCriptografada = criptografar.encode(senha);
+        return usuario.email.equals(email) && usuario.senha.equals(senha);
     }
 
 }
