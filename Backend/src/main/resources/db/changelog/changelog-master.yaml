@@ -99,7 +99,7 @@ databaseChangeLog:
                   name: id_filme
                   type: int
 
-  #tabela aavaliacao
+  #tabela avaliacao
   - changeSet:
       id: 4-tabela-avaliacao
       author: thaissa
