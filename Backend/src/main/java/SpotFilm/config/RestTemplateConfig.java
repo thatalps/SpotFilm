@@ -25,7 +25,7 @@ public class RestTemplateConfig {
                 .build();
     }
 
-    public class BearerTokenInterceptor implements ClientHttpRequestInterceptor {
+    public static class BearerTokenInterceptor implements ClientHttpRequestInterceptor {
 
         private static final String TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMzMyMDBmMmVmZjBjYTcxNGE2YTU3NzE4MzU3OWNmNyIsIm5iZiI6MTcyMjM2NTkyMC45MDYyMTgsInN1YiI6IjY2OWFmNGJmNTRmNWM2YTU4MDc3NTk2YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5OOtwOAPC_ENS-dtRBSOGhBiWLfKt_uJnv26U925T3Q";
 

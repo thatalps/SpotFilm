@@ -27,6 +27,7 @@ public class ApiController {
 
     @GetMapping("/filme/id/{id}")
     public ResponseEntity<Filme> getFilmePorId(@PathVariable long id) {
+        logger.info("Teste");
         Filme filme = apiService.getFilmePorId(id);
         if (filme == null) {
             return ResponseEntity.noContent().build();
