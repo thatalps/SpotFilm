@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
+public class Usuario extends SpotFilm.model.Admin
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
