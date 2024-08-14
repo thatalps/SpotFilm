@@ -27,7 +27,7 @@ public class UsuarioController {
     {
         usuario.setSenha(criptografo.criptografar(usuario.getSenha()));
         usuarioRepository.save(usuario);
-        return ResponseEntity.ok("Cadastro bem-sucedido");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cadastro bem-sucedido");
     }
 
     @PostMapping("/usuarios/login")
