@@ -1,13 +1,34 @@
 import { IMovie } from '@/types/interfaces.tsx'
 import { Clapperboard } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area.tsx'
+import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/createListDialog.tsx'
 
-export function SearchResult({ movies }: { movies: IMovie[] }) {
+export function SearchResult({
+  movies,
+  selectDropdownMovie,
+}: {
+  movies: IMovie[]
+  selectDropdownMovie: (movie: Pick<ICreateListSchema, 'movie'>) => void
+}) {
   if (movies.length === 0) return <ResultEmpty />
   return (
-    <ScrollArea className={'h-[200px]'}>
+    <ScrollArea className={'h-[200px] max-w-[500px] flex flex-col'}>
       {movies.map((movie) => (
-        <ResultItem movie={movie} />
+        <button
+          type={'button'}
+          className={'w-full'}
+          key={movie.id}
+          onClick={() =>
+            selectDropdownMovie({
+              movie: {
+                name: movie.title,
+                id: movie.id,
+              },
+            })
+          }
+        >
+          <ResultItem movie={movie} />
+        </button>
       ))}
     </ScrollArea>
   )

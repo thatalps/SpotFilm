@@ -6,6 +6,7 @@ import Home from '@/pages/appLayout/Home.tsx'
 import { Profile } from '@/pages/appLayout/Profile/Profile.tsx'
 import { AppLayout } from '@/pages/appLayout/AppLayout.tsx'
 import { AllMovies } from '@/pages/AllMovies.tsx'
+import Search from '@/pages/appLayout/search.tsx'
 
 export function AppRoutes() {
   return (
@@ -17,7 +18,8 @@ export function AppRoutes() {
         </Route>
 
         <Route element={<AppLayout />}>
-          <Route path={''} element={<Home />} />
+          <Route path={'/'} element={<Home />} />
+          <Route path={'/search'} element={<Search />} />
           <Route path={'profile'} element={<Profile />} />
           <Route path={'movies'} element={<AllMovies />} />
         </Route>
