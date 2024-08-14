@@ -10,9 +10,11 @@ interface IUserCommentProps {
 }
 
 export function UserComment({ setComment, user }: IUserCommentProps) {
-  const inputComment = useRef(null)
-
+  const inputComment = useRef<HTMLTextAreaElement>(null)
   async function postUserComment(e) {
+    if (!inputComment.current) return
+    if (!user.name) return
+
     e.preventDefault()
     const commentText: string = inputComment.current.value
 
@@ -25,8 +27,9 @@ export function UserComment({ setComment, user }: IUserCommentProps) {
       created_at: new Date(),
       text: commentText,
       rating: 4,
-      name: user?.name,
+      name: user.name,
     }
+    toast.success('Comentário enviado com sucesso!')
 
     try {
       await postMovieComment(comment)
@@ -34,24 +37,29 @@ export function UserComment({ setComment, user }: IUserCommentProps) {
     } catch (e) {
       toast.error(e.message)
     }
+
+    inputComment.current.value = ''
   }
 
   return (
     <div className={'w-full flex flex-col gap-1.5'}>
       <p className={'font-bold text-white'}></p>
-      <textarea
-        placeholder={'Compartilhe sua opinião.'}
-        className={'resize-none w-full p-2 rounded-md h-20'}
-        id={'userComment'}
-        ref={inputComment}
-      />
-      <Button
-        variant={'default'}
-        className={'self-end bg-lightBlue'}
-        onClick={(e) => postUserComment(e)}
-      >
-        Comentar
-      </Button>
+
+      <div className={'flex gap-3'}>
+        <textarea
+          placeholder={'Compartilhe sua opinião.'}
+          className={'resize-none w-full p-2 rounded-md h-10 text-black'}
+          id={'userComment'}
+          ref={inputComment}
+        />
+        <Button
+          variant={'default'}
+          className={'self-end bg-lightBlue'}
+          onClick={(e) => postUserComment(e)}
+        >
+          Enviar
+        </Button>
+      </div>
     </div>
   )
 }

@@ -9,7 +9,6 @@ export function Profile() {
       }
     >
       <UserInfo />
-
       <UserMovies />
     </div>
   )

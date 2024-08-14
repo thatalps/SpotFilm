@@ -37,7 +37,15 @@ export interface ICardMovieDetails {
 }
 
 export interface IUserProfile {
+  id: number
   name: string
   genre1: IGenre
   genre2: IGenre
+}
+
+export interface IUserRating {
+  id: string
+  idMovie: number
+  idUser: number
+  rating: number
 }
