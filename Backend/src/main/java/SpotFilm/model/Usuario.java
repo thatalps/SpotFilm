@@ -1,12 +1,12 @@
 package SpotFilm.model;
 
+import SpotFilm.util.Criptografo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -81,9 +81,9 @@ public class Usuario extends SpotFilm.model.Admin //implements UsuarioInterface
     }
 
     public static boolean autenticarUsuario(String email, String senha, Usuario usuario){
-        BCryptPasswordEncoder criptografar = new BCryptPasswordEncoder();
-        String senhaCriptografada = criptografar.encode(senha);
-        return usuario.email.equals(email) && usuario.senha.equals(senha);
+        Criptografo criptografo = new Criptografo();
+        String senhaCriptografada = criptografo.criptografar(senha);
+        return usuario.email.equals(email) && usuario.senha.equals(senhaCriptografada);
     }
 
 }
