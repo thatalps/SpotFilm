@@ -53,7 +53,7 @@ export const getMoviesByGenreMock = http.get(
           release_date: '2007-03-23',
           poster_path:
             'https://image.tmdb.org/t/p/w500/uzmiicRYXYO4sb0pdQp6jS37ZX5.jpg',
-          vote_average: 6.906,
+          vote_average: 6,
           id: 1267,
           title: 'A Família do Futuro',
           overview:
@@ -79,7 +79,7 @@ export const getMoviesByGenreMock = http.get(
           release_date: '2007-03-23',
           poster_path:
             'https://image.tmdb.org/t/p/w500/hOZKUJGN0m717LRSQDxhgABqWrf.jpg',
-          vote_average: 2,
+          vote_average: 10,
           id: 109445,
           title: 'Frozen',
           overview:

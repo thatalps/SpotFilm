@@ -6,23 +6,16 @@ import {
 } from '@/components/ui/carousel.tsx'
 import { ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button.tsx'
-import { IGenre, IMovie } from '@/types/interfaces.tsx'
-import { useEffect, useState } from 'react'
-import { getMoviesByGenre } from '@/api/movies/getMoviesByGenre.ts'
+import { IMovie } from '@/types/interfaces.tsx'
 import { useNavigate } from 'react-router-dom'
 
-export function MovieSection({ name, id }: IGenre) {
-  const [movies, setMovies] = useState<IMovie[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const navigate = useNavigate()
+interface IMovieSection {
+  name: string
+  movies: IMovie[]
+}
 
-  useEffect(() => {
-    try {
-      getMoviesByGenre(id).then((res) => setMovies(res))
-    } catch (e) {
-      setError(e.message)
-    }
-  }, [])
+export function MovieSection({ name, movies }: IMovieSection) {
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -39,7 +32,7 @@ export function MovieSection({ name, id }: IGenre) {
         </Button>
       </div>
 
-      {movies === null || error !== null ? (
+      {movies === null ? (
         <p className={'text-white h-[100px]'}>Falha ao retornar os filmes</p>
       ) : (
         <Carousel opts={{ loop: true }}>

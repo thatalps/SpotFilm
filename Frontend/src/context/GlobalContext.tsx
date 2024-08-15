@@ -18,7 +18,12 @@ export function ContextProvider({ children }) {
       const id = localStorage.getItem('userId')
       if (id) {
         const user = await getUserProfile({ id: Number(id) })
-        setUser(user)
+        setUser({
+          id: Number(id),
+          name: user.name,
+          genre2: user.genre2,
+          genre1: user.genre1,
+        })
       }
     } catch (e) {
       console.log(e.message)

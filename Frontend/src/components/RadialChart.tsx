@@ -27,7 +27,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function Component({ rating }: { rating: number }) {
+export function RadialChart({ rating }: { rating: number }) {
   const [percentage, setPercentage] = useState(360)
   const [color, setColor] = useState('')
 
@@ -37,7 +37,7 @@ export function Component({ rating }: { rating: number }) {
 
     if (rating < 5) {
       setColor('var(--color-bad)')
-    } else if (rating < 8) {
+    } else if (rating < 7) {
       setColor('var(--color-median)')
     } else {
       setColor('var(--color-good)')
@@ -46,25 +46,22 @@ export function Component({ rating }: { rating: number }) {
 
   const chartData = [{ visitors: rating, fill: color }]
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col bg-transparent border-0">
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+        <ChartContainer config={chartConfig} className="h-[100px] w-[100px]">
           <RadialBarChart
             data={chartData}
             startAngle={0}
             endAngle={percentage}
-            innerRadius={80}
-            outerRadius={110}
+            innerRadius={40}
+            outerRadius={70}
           >
             <PolarGrid
               gridType="circle"
               radialLines={false}
               stroke="none"
               className="first:fill-muted last:fill-background"
-              polarRadius={[86, 74]}
+              polarRadius={[46, 34]}
             />
             <RadialBar dataKey="visitors" background cornerRadius={10} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
@@ -81,11 +78,15 @@ export function Component({ rating }: { rating: number }) {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-4xl font-bold"
+                          className="fill-foreground text-2xl font-bold"
                         >
                           {chartData[0].visitors.toLocaleString()}
                         </tspan>
-                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24}>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 20}
+                          className={'text-sm'}
+                        >
                           Nota
                         </tspan>
                       </text>

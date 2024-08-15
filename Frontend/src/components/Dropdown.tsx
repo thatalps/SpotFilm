@@ -5,7 +5,7 @@ import {
 } from '@radix-ui/react-popover'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input.tsx'
-import { SearchResultItem } from '@/components/header/SearchResultItem.tsx'
+import { SearchResult } from '@/components/header/SearchResult.tsx'
 import * as React from 'react'
 import { ChangeEvent, useState } from 'react'
 import { IMovie } from '@/types/interfaces.tsx'
@@ -47,7 +47,7 @@ export function Dropdown() {
           {/*  )} */}
           {/* </div> */}
 
-          <SearchResultItem>a</SearchResultItem>
+          <SearchResult>a</SearchResult>
         </PopoverContent>
       </Popover>
     </div>

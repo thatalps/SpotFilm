@@ -1,12 +1,12 @@
-import { Stars } from './Stars.tsx'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
 import { IMovie } from '@/types/interfaces.tsx'
 import RanddomMoviesPoster from '../assets/randomMoviesPoster.jpg'
-import { MoviePopup } from '@/components/MoviePopup.tsx'
+import { MoviePopup } from '@/components/moviePopup/MoviePopup.tsx'
+import { MovieContextProvider } from '@/context/MovieContext.tsx'
 
 export function CardMovie(movie: IMovie) {
   return (
-    <>
+    <MovieContextProvider>
       <Dialog>
         <DialogTrigger>
           <div className={'w-[225px] flex flex-col gap-2'}>
@@ -24,14 +24,11 @@ export function CardMovie(movie: IMovie) {
             <p className={'font-bold text-lg text-start'}>
               {movie.title != null ? movie.title : ''}
             </p>
-            <Stars
-              rating={movie.vote_average != null ? movie.vote_average : 1}
-            />
           </div>
         </DialogTrigger>
 
         <MoviePopup movie={movie} />
       </Dialog>
-    </>
+    </MovieContextProvider>
   )
 }
