@@ -41,3 +41,11 @@ export const SignupSchema = z
     path: ['favGenre1'],
     message: 'Devem ser diferentes',
   })
+
+export const createListSchema = z.object({
+  title: z.string().min(4),
+  movie: z.object({
+    id: z.number().nonnegative(),
+    name: z.string(),
+  }),
+})

@@ -1,3 +1,6 @@
+import { z } from 'zod'
+import { createListSchema } from '@/types/schemas.tsx'
+
 export interface IMoviesParams {
   genreId: string | undefined
   genreName: string | undefined
@@ -48,4 +51,12 @@ export interface IUserRating {
   idMovie: number
   idUser: number
   rating: number
+}
+
+export interface ICreateListSchema extends z.infer<typeof createListSchema> {}
+
+export interface IList {
+  id: string
+  title: string
+  movies: IMovie[]
 }

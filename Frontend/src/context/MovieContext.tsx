@@ -15,6 +15,7 @@ interface IState {
 
 interface IMovieContextProps {
   setMovie: (movie: IMovie) => void
+  state: IState | null | void
 }
 export const MovieContext = createContext({} as IMovieContextProps)
 
@@ -31,7 +32,7 @@ export function MovieContextProvider({ children }) {
   }
 
   return (
-    <MovieContext.Provider value={{ setMovie }}>
+    <MovieContext.Provider value={{ setMovie, state }}>
       {children}
     </MovieContext.Provider>
   )

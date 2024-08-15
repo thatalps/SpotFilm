@@ -9,26 +9,19 @@ import { Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { DialogDropdown } from '@/pages/appLayout/Profile/createListDialog/dialogDropdown.tsx'
-import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { createCustomList } from '@/api/list/CreateCustomList.ts'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
 import { toast } from 'sonner'
-
-const createListSchema = z.object({
-  title: z.string().min(4),
-  movie: z.object({
-    id: z.number().nonnegative(),
-    name: z.string(),
-  }),
-})
-
-export interface ICreateListSchema extends z.infer<typeof createListSchema> {}
+import { createListSchema } from '@/types/schemas.tsx'
+import { ICreateListSchema } from '@/types/interfaces.tsx'
 
 export function CreateListDialog() {
-  const [selectedMovie, setSelectedMovie] = useState(undefined)
+  const [selectedMovie, setSelectedMovie] = useState<string | undefined>(
+    undefined,
+  )
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useContext(GlobalContext)
   const listTitle = useRef<HTMLInputElement | null>(null)

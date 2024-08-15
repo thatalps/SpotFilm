@@ -4,11 +4,7 @@ import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/cr
 export async function createCustomList(
   newList: ICreateListSchema & { id: number },
 ) {
-  const response = await apiAxios.post('lista/criacao', {
-    idUsuario: newList.id,
-    nomeLista: newList.title,
-    idFilme: newList.movie.id,
-  })
+  const response = await apiAxios.post('lista/criacao', newList)
 
   if (response.status === 401) {
     throw new Error('Token não fornecido.')

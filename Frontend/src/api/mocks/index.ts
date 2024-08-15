@@ -8,7 +8,8 @@ import { GetMoviesByNameMock } from '@/api/mocks/movies/getMoviesByName.mock.ts'
 import { GetMoviesCommentsMocks } from '@/api/mocks/movies/getMoviesComments.mocks.ts'
 import { PostMovieCommentMock } from '@/api/mocks/movies/postMovieComment.mock.ts'
 import { PostMovieRatingMock } from '@/api/mocks/movies/postMovieRating.mock.ts'
-import { CreateCustomListMock } from '@/api/mocks/movies/createCustomList.mock.tsx'
+import { CreateCustomListMock } from '@/api/mocks/list/createCustomList.mock.tsx'
+import { GetAllListsMock } from '@/api/mocks/list/getAllLists.mock.ts'
 
 export const worker = setupWorker(
   loginUserMock,
@@ -20,6 +21,7 @@ export const worker = setupWorker(
   PostMovieCommentMock,
   PostMovieRatingMock,
   CreateCustomListMock,
+  GetAllListsMock,
 )
 
 export async function startMSW() {

@@ -5,14 +5,12 @@ import RandomMoviesPoster from '@/assets/randomMoviesPoster.jpg'
 import { ICardMovieDetails } from '@/types/interfaces.tsx'
 import { Badge } from '@/components/ui/badge.tsx'
 import { RadialChart } from '@/components/RadialChart.tsx'
-import { MoviePopupCommentSection } from '@/components/moviePopup/MoviePopupCommentSection.tsx'
-import { MoviePopupRatingSection } from '@/components/moviePopup/MoviePopupRatingSection.tsx'
 import { MoviePopupTabs } from '@/components/moviePopup/MoviePopupTabs.tsx'
 
 export function MoviePopup({ movie }: ICardMovieDetails) {
   return (
     <DialogContent
-      className={'p-0 border-0 bg-black h-[50rem] max-w-2xl text-white'}
+      className={'p-0 border-0 bg-black h-fit max-w-2xl text-white'}
     >
       <DialogTitle />
       <DialogHeader>
