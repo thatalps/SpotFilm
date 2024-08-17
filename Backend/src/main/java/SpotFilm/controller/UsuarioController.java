@@ -3,7 +3,7 @@ package SpotFilm.controller;
 import SpotFilm.dto.ApiResposta;
 import SpotFilm.model.Usuario;
 import SpotFilm.repository.UsuarioRepository;
-import SpotFilm.util.Criptografo;
+import SpotFilm.util.Autenticador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private Criptografo criptografo = new Criptografo();
+    private Autenticador autenticador = new Autenticador();
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioRepository.class);
 
     @PostMapping("/usuarios/cadastro")
     public ResponseEntity<String> cadastro(@RequestBody Usuario usuario)
     {
-        usuario.setSenha(criptografo.criptografar(usuario.getSenha()));
+        usuario.setSenha(autenticador.criptografar(usuario.getSenha()));
         usuarioRepository.save(usuario);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cadastro bem-sucedido");
     }
