@@ -1,7 +1,7 @@
-import { IMovie } from '@/types/interfaces.tsx'
+import { ICreateListSchema, IMovie } from '@/types/interfaces.tsx'
 import { Clapperboard } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area.tsx'
-import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/createListDialog.tsx'
+import { toast } from 'sonner'
 
 export function SearchResult({
   movies,
@@ -18,14 +18,15 @@ export function SearchResult({
           type={'button'}
           className={'w-full'}
           key={movie.id}
-          onClick={() =>
+          onClick={() => {
+            toast.success('Filme selecionado!', { duration: 2000 })
             selectDropdownMovie({
               movie: {
                 name: movie.title,
                 id: movie.id,
               },
             })
-          }
+          }}
         >
           <ResultItem movie={movie} />
         </button>

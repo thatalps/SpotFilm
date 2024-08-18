@@ -4,17 +4,16 @@ import { Input } from '@/components/ui/input.tsx'
 import { SearchResult } from '@/components/header/SearchResult.tsx'
 import * as React from 'react'
 import { useRef, useState } from 'react'
-import { IMovie } from '@/types/interfaces.tsx'
+import { ICreateListSchema, IMovie } from '@/types/interfaces.tsx'
 import { getMoviesByName } from '@/api/movies/getMoviesByName.ts'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PopoverTrigger } from '@/components/ui/popover.tsx'
-import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/createListDialog.tsx'
 
 const searchSchema = z.object({
-  title: z.string().min(4, {
-    message: 'O filme deve ter pelo menos 4 caracteres.',
+  title: z.string().min(1, {
+    message: 'O filme deve ter ser preenchido.',
   }),
 })
 
@@ -41,7 +40,6 @@ export function DialogDropdown({
       setMovies(movies)
     } catch (e) {
       console.log(e)
-      console.log('mds eu nao aguento mais')
     }
   }
 

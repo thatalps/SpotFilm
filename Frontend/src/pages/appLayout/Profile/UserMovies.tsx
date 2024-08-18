@@ -24,6 +24,7 @@ export function UserMovies() {
         lists.map((list) => (
           <MovieSection id={list.id} name={list.title} movies={list.movies} />
         ))}
+
     </div>
   )
 }

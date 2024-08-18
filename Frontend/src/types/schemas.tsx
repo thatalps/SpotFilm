@@ -43,7 +43,7 @@ export const SignupSchema = z
   })
 
 export const createListSchema = z.object({
-  title: z.string().min(4),
+  title: z.string().min(1),
   movie: z.object({
     id: z.number().nonnegative(),
     name: z.string(),
