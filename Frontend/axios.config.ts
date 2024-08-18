@@ -3,7 +3,6 @@ import { env } from './env'
 
 export const apiAxios = axios.create({
   baseURL: env.VITE_API_URL,
-  withCredentials: true,
   validateStatus: () => true,
 })
 
