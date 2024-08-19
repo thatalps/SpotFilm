@@ -1,6 +1,7 @@
 package SpotFilm.controller;
 
 import SpotFilm.dto.ApiResposta;
+import SpotFilm.dto.UsuarioLoginRequest;
 import SpotFilm.model.Usuario;
 import SpotFilm.repository.UsuarioRepository;
 import SpotFilm.util.Autenticador;
@@ -32,10 +33,15 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuarios/login")
-    public ResponseEntity<ApiResposta<Long>> login(@RequestParam String email, @RequestParam String senha)
+    public ResponseEntity<ApiResposta<Long>> login(@RequestBody UsuarioLoginRequest loginRequest)
     {
+        Autenticador autenticador = new Autenticador();
+        String email = loginRequest.getEmail();
+        String senha = loginRequest.getSenha();
+
         Usuario usuario = usuarioRepository.findByEmail(email);
-        boolean autenticado = Usuario.autenticarUsuario(email, senha, usuario);
+
+        boolean autenticado = autenticador.autenticarUsuario(email, senha, usuario);
 
         if (autenticado) {
             return ResponseEntity.ok(

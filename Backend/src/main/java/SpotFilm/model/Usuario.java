@@ -80,10 +80,4 @@ public class Usuario extends SpotFilm.model.Admin
                 '}';
     }
 
-    public static boolean autenticarUsuario(String email, String senha, Usuario usuario){
-        Autenticador autenticador = new Autenticador();
-        String senhaCriptografada = autenticador.criptografar(senha);
-        return usuario.email.equals(email) && usuario.senha.equals(senhaCriptografada);
-    }
-
 }
