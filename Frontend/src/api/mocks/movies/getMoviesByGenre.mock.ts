@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 
 export const getMoviesByGenreMock = http.get(
-  'api/get_filmes_por_genero',
+  'api/filme/genero/',
   async ({ request }) => {
     const url = new URL(request.url)
     const productId = url.searchParams.get('id')

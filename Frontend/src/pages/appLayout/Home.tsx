@@ -1,21 +1,25 @@
 import { MovieSection } from '@/components/MovieSection.tsx'
 import { Header } from '@/components/header/Header.tsx'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { getMoviesByGenre } from '@/api/movies/getMoviesByGenre.ts'
 import { IMovie } from '@/types/interfaces.tsx'
 import { GENRES } from '@/types/genres.ts'
 import { LoaderCircle } from 'lucide-react'
+import { GlobalContext } from '@/context/GlobalContext.tsx'
 
 type TMovieList = Map<number, { name: string; movies: IMovie[] }>
 
 function Home() {
   const [movieList, setMovieList] = useState<null | TMovieList>(null)
+  const { genres } = useContext(GlobalContext)
+
   async function getMovie() {
     try {
       const movieMap = new Map<number, { name: string; movies: IMovie[] }>()
 
-      for await (const genre of GENRES) {
-        const movies = await getMoviesByGenre(genre.id)
+      for await (const genre of genres) {
+        const response = await getMoviesByGenre(genre.id)
+        const movies = response.results
 
         movieMap.set(genre.id, {
           name: genre.name,

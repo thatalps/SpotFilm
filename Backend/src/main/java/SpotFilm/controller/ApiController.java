@@ -51,7 +51,7 @@ public class ApiController {
         return ResponseEntity.ok(filmes);
     }
 
-    @GetMapping("/filme/genero/{genero}")
+    @GetMapping("/filme/genero/{idGenero}")
     public ResponseEntity<FilmeRespostaApi> getFilmesPorGenero(@PathVariable int idGenero) {
         FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
         if (filmes == null){

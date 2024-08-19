@@ -16,6 +16,7 @@ import { toast } from 'sonner'
 export function Navbar() {
   const { user, logout } = useContext(GlobalContext)
   const navigate = useNavigate()
+  const { genres } = useContext(GlobalContext)
 
   function getMovies(id: number, label: string) {
     try {
@@ -48,6 +49,18 @@ export function Navbar() {
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
+                  {genres &&
+                    genres.map((genre) => {
+                      return (
+                        <Button
+                          key={genre.id}
+                          variant={'ghost'}
+                          onClick={() => getMovies(genre.id, genre.name)}
+                        >
+                          Comédia
+                        </Button>
+                      )
+                    })}
                   <Button
                     variant={'ghost'}
                     onClick={() => getMovies(1, 'Comédia')}

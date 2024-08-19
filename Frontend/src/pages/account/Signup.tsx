@@ -100,7 +100,7 @@ export function Signup() {
                 <SelectContent>
                   {genres &&
                     genres.map((genre) => (
-                      <SelectItem value={genre.id.toString()}>
+                      <SelectItem key={genre.id} value={genre.id.toString()}>
                         {genre.name}
                       </SelectItem>
                     ))}
@@ -119,7 +119,7 @@ export function Signup() {
                 <SelectContent>
                   {genres &&
                     genres.map((genre) => (
-                      <SelectItem value={genre.id.toString()}>
+                      <SelectItem key={genre.id} value={genre.id.toString()}>
                         {genre.name}
                       </SelectItem>
                     ))}

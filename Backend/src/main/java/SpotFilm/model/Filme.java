@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 public class Filme {
+    private static final String url = "https://image.tmdb.org/t/p/w500";
 
     @Setter
     @Getter
@@ -78,4 +79,11 @@ public class Filme {
     @JsonProperty("vote_count")
     private int voteCount;
 
+    public String getBackdropPath() {
+        return url + backdropPath;
+    }
+
+    public String getPosterPath() {
+        return url + posterPath;
+    }
 }

@@ -44,18 +44,10 @@ export function ContextProvider({ children }) {
 
     try {
       getAllGenres().then((res) => setGenres(res.genres))
-      console.log("deu certo")
     } catch (e) {
-      toast.error(e.message())
       console.log(e.message())
     }
   }, [])
-
-  useEffect(() => {
-    console.log('generos')
-
-    console.log(genres)
-  }, [genres])
 
   function setUserData(data: IUserProfile) {
     setUser(data)
