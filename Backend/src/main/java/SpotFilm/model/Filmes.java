@@ -6,17 +6,18 @@ import lombok.Setter;
 
 import java.util.List;
 
-public class Filme {
+public class Filmes {
     private static final String url = "https://image.tmdb.org/t/p/w500";
 
     @Setter
+    @Getter
     @JsonProperty("backdrop_path")
     private String backdropPath;
 
     @Setter
     @Getter
-    @JsonProperty("genres")
-    private List<Genero> generos;
+    @JsonProperty("genre_ids")
+    private List<Genero> genero_ids;
 
     @Setter
     @Getter

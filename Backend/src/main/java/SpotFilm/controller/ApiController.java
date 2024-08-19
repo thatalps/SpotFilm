@@ -3,12 +3,15 @@ package SpotFilm.controller;
 import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
+import SpotFilm.model.Genero;
 import SpotFilm.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @CrossOrigin
@@ -18,11 +21,8 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiController.class);
-
     @GetMapping("/filme/id/{id}")
     public ResponseEntity<Filme> getFilmePorId(@PathVariable long id) {
-        logger.info("Teste");
         Filme filme = apiService.getFilmePorId(id);
         if (filme == null) {
             return ResponseEntity.noContent().build();

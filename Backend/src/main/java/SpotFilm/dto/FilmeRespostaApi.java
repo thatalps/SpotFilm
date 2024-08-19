@@ -1,7 +1,6 @@
 package SpotFilm.dto;
 
-import SpotFilm.model.Filme;
-import SpotFilm.model.Genero;
+import SpotFilm.model.Filmes;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,7 @@ public class FilmeRespostaApi {
 
     @Setter
     @Getter
-    private List<Filme> results;
+    private List<Filmes> results;
 
     @Setter
     @Getter

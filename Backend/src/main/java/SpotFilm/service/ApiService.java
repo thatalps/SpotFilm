@@ -31,6 +31,7 @@ public class ApiService {
         }
     }
 
+    //mudar o retorno de generos
     public FilmeRespostaApi getFilmes(String url) {
         try {
             FilmeRespostaApi apiResponse = restTemplate.getForObject(url, FilmeRespostaApi.class);
