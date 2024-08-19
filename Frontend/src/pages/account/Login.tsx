@@ -26,11 +26,12 @@ export function Login() {
   async function handleLoginSubmit(data: TLogin) {
     try {
       const { id } = await LoginUser(data)
-      const userProfile = await getUserProfile({ id })
-      setUserData(userProfile)
-      localStorage.setItem('userId', JSON.stringify(id))
+      console.log(id)
+      // const userProfile = await getUserProfile({ id })
+      // setUserData(userProfile)
+      // localStorage.setItem('userId', JSON.stringify(id))
       toast.success('Login realizado com sucesso!', { duration: 2000 })
-      navigate('/')
+      // navigate('/')
     } catch (e) {
       if (e instanceof Error) {
         toast.error(e.message, { duration: 2000 })
