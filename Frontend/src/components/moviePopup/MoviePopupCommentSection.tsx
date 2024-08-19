@@ -13,9 +13,22 @@ export function MoviePopupCommentSection({ id }: { id: number }) {
     getMoviesComments({ id }).then((res) => setComments(res))
   }, [])
 
+  if (!user) {
+    return (
+      <div className={'min-h-48 flex justify-center items-center'}>
+        Logue para comentar
+      </div>
+    )
+  }
+
   return (
     <div className={'mx-10 flex flex-col '}>
       {comments && <AllComments comments={comments} />}
+      {!comments && (
+        <div className={'min-h-48 flex justify-center items-center'}>
+          Nenhum comentário...
+        </div>
+      )}
 
       {user && (
         <UserComment
@@ -24,6 +37,12 @@ export function MoviePopupCommentSection({ id }: { id: number }) {
           }
           user={user}
         />
+      )}
+
+      {!user && (
+        <div className={'min-h-48 flex justify-center items-center'}>
+          Logue para comentar
+        </div>
       )}
     </div>
   )

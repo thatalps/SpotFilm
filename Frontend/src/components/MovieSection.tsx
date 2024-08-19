@@ -39,7 +39,7 @@ export function MovieSection({ name, movies }: IMovieSection) {
           <CarouselContent>
             {movies.map((movie) => {
               return (
-                <CarouselItem className="basis-2/9 h-[440px]">
+                <CarouselItem key={movie.id} className="basis-2/9 h-[440px]">
                   <CardMovie {...movie} />
                 </CarouselItem>
               )

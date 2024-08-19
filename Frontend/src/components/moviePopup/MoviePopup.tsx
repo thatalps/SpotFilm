@@ -52,13 +52,13 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
 
           <div className={'my-2 top-0 w-4/6 '}>
             <div className={'h-[16rem]  overflow-y-scroll no-scrollbar'}>
-              <div className={'flex'}>
+              <div className={'flex justify-between'}>
                 <div>
                   <h2 className={'font-bold text-2xl py-2'}>{movie.title}</h2>
 
                   <div className={'flex gap-2 my-2'}>
-                    {movie.genres &&
-                      movie.genres.map((genre) => {
+                    {movie.genres_id &&
+                      movie.genres_id.map((genre) => {
                         return <Badge variant={'secondary'}>{genre.name}</Badge>
                       })}
                   </div>

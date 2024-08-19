@@ -57,7 +57,7 @@ export function Navbar() {
                           variant={'ghost'}
                           onClick={() => getMovies(genre.id, genre.name)}
                         >
-                          Comédia
+                          {genre.name}
                         </Button>
                       )
                     })}

@@ -24,6 +24,14 @@ export function MoviePopupRatingSection() {
     }
   }
 
+  if (!context.user) {
+    return (
+      <div className={'min-h-48 flex justify-center items-center'}>
+        Logue para avaliar
+      </div>
+    )
+  }
+
   return (
     <div
       className={'gap-y-4 w-full p-8 flex flex-col items-center justify-center'}
