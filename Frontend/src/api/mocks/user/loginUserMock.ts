@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw'
 import { IDataId, TLogin } from '@/types/interfaces.tsx'
 
 export const loginUserMock = http.post<TLogin, IDataId | null>(
-  '/user/login',
+  '/api/usuarios/login',
   async ({ request }) => {
     const { email } = await request.json()
 
@@ -18,7 +18,7 @@ export const loginUserMock = http.post<TLogin, IDataId | null>(
     }
 
     return new HttpResponse(null, {
-      status: 404,
+      status: 401,
     })
   },
 )

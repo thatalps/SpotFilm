@@ -1,17 +1,21 @@
 import { createContext, useEffect, useState } from 'react'
-import { IUserProfile } from '@/types/interfaces.tsx'
+import { IGenre, IUserProfile } from '@/types/interfaces.tsx'
 import { getUserProfile } from '@/api/user/getUserProfile.ts'
+import { getAllGenres } from '@/api/movies/getAllGenres.ts'
+import { toast } from 'sonner'
 
 interface IGlobalContext {
   setUserData: (data: IUserProfile) => void
   user: IUserProfile | undefined
   logout: () => void
+  genres: IGenre[] | undefined
 }
 
 export const GlobalContext = createContext({} as IGlobalContext)
 
 export function ContextProvider({ children }) {
   const [user, setUser] = useState<IUserProfile>()
+  const [genres, setGenres] = useState<IGenre[]>()
 
   async function getLocalStorage() {
     try {
@@ -37,6 +41,12 @@ export function ContextProvider({ children }) {
 
   useEffect(() => {
     getLocalStorage()
+
+    try {
+      getAllGenres().then((res) => setGenres(res.genres))
+    } catch (e) {
+      console.log(e.message())
+    }
   }, [])
 
   function setUserData(data: IUserProfile) {
@@ -44,7 +54,7 @@ export function ContextProvider({ children }) {
   }
 
   return (
-    <GlobalContext.Provider value={{ setUserData, user, logout }}>
+    <GlobalContext.Provider value={{ setUserData, user, logout, genres }}>
       {children}
     </GlobalContext.Provider>
   )

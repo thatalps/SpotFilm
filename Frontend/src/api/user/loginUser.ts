@@ -1,10 +1,13 @@
 import { apiAxios } from '../../../axios.config.ts'
-import { IDataId, TLogin } from '@/types/interfaces.tsx'
+import { IDataId } from '@/types/interfaces.tsx'
+import { TLogin } from '@/types/types.tsx'
 
 export async function LoginUser(data: TLogin): Promise<IDataId> {
-  const response = await apiAxios.post<TLogin>('/user/login', data)
+  const response = await apiAxios.post<TLogin>(
+    `/api/usuarios/login?email=${data.email}&senha=${data.password}`,
+  )
 
-  if (response.status === 404) {
+  if (response.status === 401) {
     throw new Error('Falha ao logar o usuário')
   }
 

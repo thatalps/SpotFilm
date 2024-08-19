@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 public class Filme {
+    private static final String url = "https://image.tmdb.org/t/p/w500";
 
     private static final String url = "https://image.tmdb.org/t/p/w500";
 

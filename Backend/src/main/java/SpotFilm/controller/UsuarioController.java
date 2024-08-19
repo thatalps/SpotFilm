@@ -1,9 +1,10 @@
 package SpotFilm.controller;
 
 import SpotFilm.dto.ApiResposta;
+import SpotFilm.dto.UsuarioLoginRequest;
 import SpotFilm.model.Usuario;
 import SpotFilm.repository.UsuarioRepository;
-import SpotFilm.util.Criptografo;
+import SpotFilm.util.Autenticador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +13,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private Criptografo criptografo = new Criptografo();
+    private Autenticador autenticador = new Autenticador();
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioRepository.class);
 
     @PostMapping("/usuarios/cadastro")
     public ResponseEntity<String> cadastro(@RequestBody Usuario usuario)
     {
-        usuario.setSenha(criptografo.criptografar(usuario.getSenha()));
+        usuario.setSenha(autenticador.criptografar(usuario.getSenha()));
         usuarioRepository.save(usuario);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cadastro bem-sucedido");
     }
 
     @PostMapping("/usuarios/login")
-    public ResponseEntity<ApiResposta<Long>> login(@RequestParam String email, @RequestParam String senha)
+    public ResponseEntity<ApiResposta<Long>> login(@RequestBody UsuarioLoginRequest loginRequest)
     {
+        Autenticador autenticador = new Autenticador();
+        String email = loginRequest.getEmail();
+        String senha = loginRequest.getSenha();
+
         Usuario usuario = usuarioRepository.findByEmail(email);
-        boolean autenticado = Usuario.autenticarUsuario(email, senha, usuario);
+
+        boolean autenticado = autenticador.autenticarUsuario(email, senha, usuario);
 
         if (autenticado) {
             return ResponseEntity.ok(

@@ -15,6 +15,8 @@ import { SignupSchema } from '@/types/schemas.tsx'
 import { ControlledInput } from '@/pages/account/components/ControlledInput.tsx'
 import { signupUser } from '@/api/user/signupUser.ts'
 import { toast, Toaster } from 'sonner'
+import { useContext } from 'react'
+import { GlobalContext } from '@/context/GlobalContext.tsx'
 
 export function Signup() {
   const {
@@ -26,6 +28,7 @@ export function Signup() {
     resolver: zodResolver(SignupSchema),
   })
   const navigate = useNavigate()
+  const { genres } = useContext(GlobalContext)
 
   async function handleSignupSubmit(data: TSignup) {
     try {
@@ -95,9 +98,12 @@ export function Signup() {
                   <SelectValue placeholder="Escolha um gênero" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">Romance</SelectItem>
-                  <SelectItem value="2">Comédia</SelectItem>
-                  <SelectItem value="3">Animação</SelectItem>
+                  {genres &&
+                    genres.map((genre) => (
+                      <SelectItem key={genre.id} value={genre.id.toString()}>
+                        {genre.name}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               {errors.favGenre1?.message && (
@@ -111,9 +117,12 @@ export function Signup() {
                   <SelectValue placeholder="Escolha um gênero" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">Romance</SelectItem>
-                  <SelectItem value="2">Comédia</SelectItem>
-                  <SelectItem value="3">Animação</SelectItem>
+                  {genres &&
+                    genres.map((genre) => (
+                      <SelectItem key={genre.id} value={genre.id.toString()}>
+                        {genre.name}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               {errors.favGenre2?.message && (

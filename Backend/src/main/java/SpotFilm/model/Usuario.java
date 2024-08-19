@@ -1,6 +1,6 @@
 package SpotFilm.model;
 
-import SpotFilm.util.Criptografo;
+import SpotFilm.util.Autenticador;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -78,12 +78,6 @@ public class Usuario extends SpotFilm.model.Admin
                 ", generoPreferido2=" + generoPreferido2 +
                 ", Admin=" + getAdmin() +
                 '}';
-    }
-
-    public static boolean autenticarUsuario(String email, String senha, Usuario usuario){
-        Criptografo criptografo = new Criptografo();
-        String senhaCriptografada = criptografo.criptografar(senha);
-        return usuario.email.equals(email) && usuario.senha.equals(senhaCriptografada);
     }
 
 }
