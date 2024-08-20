@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios'
 
 export async function getUserProfile(data: IDataId): Promise<IUserProfile> {
   const response: AxiosResponse = await apiAxios.post<IDataId>(
-    '/users/profile',
+    'users/profile',
     data,
   )
 

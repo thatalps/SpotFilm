@@ -3,7 +3,7 @@ import { IDataId } from '@/types/interfaces.tsx'
 import { TLogin } from '@/types/types.tsx'
 
 export async function LoginUser(data: TLogin): Promise<IDataId> {
-  const response = await apiAxios.post<TLogin>(`api/usuarios/login`, {
+  const response = await apiAxios.post<TLogin>(`usuarios/login`, {
     email: data.email,
     senha: data.password,
   })

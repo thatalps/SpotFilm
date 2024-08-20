@@ -47,11 +47,11 @@ export function Navbar() {
                   Categorias
                 </Button>
               </MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>
-                  {genres &&
-                    genres.map((genre) => {
-                      return (
+              <MenubarContent className={'flex flex-col'}>
+                {genres &&
+                  genres.map((genre) => {
+                    return (
+                      <MenubarItem key={genre.id} className={'justify-center'}>
                         <Button
                           key={genre.id}
                           variant={'ghost'}
@@ -59,15 +59,9 @@ export function Navbar() {
                         >
                           {genre.name}
                         </Button>
-                      )
-                    })}
-                  <Button
-                    variant={'ghost'}
-                    onClick={() => getMovies(1, 'Comédia')}
-                  >
-                    Comédia
-                  </Button>
-                </MenubarItem>
+                      </MenubarItem>
+                    )
+                  })}
               </MenubarContent>
             </MenubarMenu>
           </Menubar>

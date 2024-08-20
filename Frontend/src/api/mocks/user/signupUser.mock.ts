@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw'
 import { TSignup } from '@/types/types.tsx'
 
 export const SignupUserMock = http.post<never, TSignup>(
-  'api/usuarios/cadastro',
+  'usuarios/cadastro',
   async ({ request }) => {
     const { email } = await request.json()
 

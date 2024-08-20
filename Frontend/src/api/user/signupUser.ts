@@ -2,7 +2,7 @@ import { apiAxios } from '../../../axios.config.ts'
 import { TSignup } from '@/types/types.tsx'
 
 export async function signupUser(data: TSignup) {
-  const response = await apiAxios.post('api/usuarios/cadastro', {
+  const response = await apiAxios.post('usuarios/cadastro', {
     nome: data.name,
     email: data.email,
     senha: data.password,
