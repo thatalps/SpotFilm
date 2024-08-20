@@ -54,6 +54,7 @@ public class ApiController {
         if (filmes == null){
             return ResponseEntity.noContent().build();
         }
+
         return ResponseEntity.ok(filmes);
     }
 
@@ -65,4 +66,18 @@ public class ApiController {
         }
         return ResponseEntity.ok(generos);
     }
+
+    /*
+    private List<Genero> getListaGenerosFilme(List<Integer> generosId){
+        List<Genero> generos = new ArrayList<>();
+
+        GeneroRespostaApi listaGeneros = apiService.getListaGenero();
+
+        for (Integer id : generosId) {
+            generos.add(listaGeneros.getGenres().get(id));
+        }
+
+        return generos;
+    }
+    */
 }

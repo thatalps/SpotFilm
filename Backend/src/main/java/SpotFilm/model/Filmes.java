@@ -1,9 +1,11 @@
 package SpotFilm.model;
 
+import SpotFilm.dto.GeneroRespostaApi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Filmes {
@@ -17,7 +19,7 @@ public class Filmes {
     @Setter
     @Getter
     @JsonProperty("genre_ids")
-    private List<Genero> genero_ids;
+    private List<Integer> genero_ids;
 
     @Setter
     @Getter
