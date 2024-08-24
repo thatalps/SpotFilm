@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/lista")
 public class ListaController {
 
     @Autowired
     ListaService listaService;
 
-    @GetMapping("/lista/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Filme> getListaPorId(@PathVariable long idLista) {
 //       busca no service os filmes e formatar pro front
 //        Optional<Filme> filmes = listaService.getListaPorId(idLista);
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/lista/{nomeLista}")
+    @GetMapping("/{nomeLista}")
     public ResponseEntity<Filme> getListaPorNomeLista(@PathVariable String nomeLista) {
 //       busca no service os filmes e formatar pro front
 //        Optional<Filme> filmes = listaService.getListaPorNomeLista(nomeLista);

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class UsuarioController {
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioRepository.class);
 
-    @PostMapping("/usuarios/cadastro")
+    @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(@RequestBody Usuario usuario)
     {
         usuario.setSenha(autenticador.criptografar(usuario.getSenha()));
@@ -36,7 +36,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cadastro bem-sucedido");
     }
 
-    @PostMapping("/usuarios/login")
+    @PostMapping("/login")
     public ResponseEntity<ApiResposta<Long>> login(@RequestBody UsuarioLoginRequest loginRequest)
     {
         Autenticador autenticador = new Autenticador();
@@ -58,7 +58,7 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/usuarios/get_usuario/{idUsuario}")
+    @GetMapping("/get_usuario/{idUsuario}")
     public ResponseEntity<ApiResposta<UsuarioInfo>> getUsuario(@PathVariable Long idUsuario)
     {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);

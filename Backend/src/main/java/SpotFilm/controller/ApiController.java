@@ -15,13 +15,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/filme")
 public class ApiController {
 
     @Autowired
     private ApiService apiService;
 
-    @GetMapping("/filme/id/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Filme> getFilmePorId(@PathVariable long id) {
         Filme filme = apiService.getFilmePorId(id);
         if (filme == null) {
@@ -30,7 +30,7 @@ public class ApiController {
         return ResponseEntity.ok(filme);
     }
 
-    @GetMapping("/filme/titulo/{titulo}")
+    @GetMapping("/titulo/{titulo}")
     public ResponseEntity<FilmeRespostaApi> getFilmesPorTitulo(@PathVariable String titulo) {
         FilmeRespostaApi filmes = apiService.getFilmesPorTitulo(titulo);
         if (filmes == null){
@@ -39,7 +39,7 @@ public class ApiController {
         return ResponseEntity.ok(filmes);
     }
 
-    @GetMapping("/filme/recomendacao/{idFilme}")
+    @GetMapping("/recomendacao/{idFilme}")
     public ResponseEntity<FilmeRespostaApi> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
         FilmeRespostaApi filmes = apiService.getRecomendacaoPorFilme(idFilme);
         if (filmes == null){
@@ -48,7 +48,7 @@ public class ApiController {
         return ResponseEntity.ok(filmes);
     }
 
-    @GetMapping("/filme/genero/{idGenero}")
+    @GetMapping("/genero/{idGenero}")
     public ResponseEntity<FilmeRespostaApi> getFilmesPorGenero(@PathVariable int idGenero) {
         FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
         if (filmes == null){
