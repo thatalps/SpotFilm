@@ -8,7 +8,7 @@ export function SearchResult({
   selectDropdownMovie,
 }: {
   movies: IMovie[]
-  selectDropdownMovie: (movie: Pick<ICreateListSchema, 'movie'>) => void
+  selectDropdownMovie: (IMovie) => void
 }) {
   if (movies.length === 0) return <ResultEmpty />
   return (
@@ -21,10 +21,7 @@ export function SearchResult({
           onClick={() => {
             toast.success('Filme selecionado!', { duration: 2000 })
             selectDropdownMovie({
-              movie: {
-                name: movie.title,
-                id: movie.id,
-              },
+              movie,
             })
           }}
         >

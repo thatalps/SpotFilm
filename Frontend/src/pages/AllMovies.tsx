@@ -2,7 +2,6 @@ import { CardMovie } from '@/components/CardMovie.tsx'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button.tsx'
 import { ChevronLeft } from 'lucide-react'
-import { CardAddMovie } from '@/components/CardAddMovie.tsx'
 
 export function AllMovies() {
   const { state } = useLocation()
@@ -20,7 +19,6 @@ export function AllMovies() {
       </div>
 
       <div className={'flex flex-wrap gap-5'}>
-        <CardAddMovie />
         {state.movies !== null ? (
           state.movies.map((movie) => {
             return <CardMovie {...movie} />

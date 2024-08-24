@@ -9,7 +9,11 @@ export function CardMovie(movie: IMovie) {
     <MovieContextProvider>
       <Dialog>
         <DialogTrigger>
-          <div className={'w-[225px] flex flex-col gap-2'}>
+          <div
+            className={
+              'w-[225px] min-h-[380px] flex flex-col gap-2 justify-between'
+            }
+          >
             <picture>
               <img
                 src={

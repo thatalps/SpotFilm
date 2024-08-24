@@ -1,5 +1,4 @@
 import { DialogContent, DialogHeader } from '@/components/ui/dialog.tsx'
-import { DialogTitle } from '@radix-ui/react-dialog'
 import MovieBackground from '@/assets/backgroundHeader.png'
 import RandomMoviesPoster from '@/assets/randomMoviesPoster.jpg'
 import { ICardMovieDetails } from '@/types/interfaces.tsx'
@@ -10,10 +9,11 @@ import { MoviePopupTabs } from '@/components/moviePopup/MoviePopupTabs.tsx'
 export function MoviePopup({ movie }: ICardMovieDetails) {
   return (
     <DialogContent
-      className={'p-0 border-0 bg-black h-fit max-w-2xl text-white'}
+      className={
+        'p-0 border-0 bg-black h-fit max-w-2xl text-white min-h-[740px]'
+      }
     >
-      <DialogTitle />
-      <DialogHeader>
+      <DialogHeader className={'justify-start'}>
         <picture className={'relative'}>
           {movie.backdrop_path !== null ? (
             <img
@@ -78,7 +78,7 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
           </div>
         </div>
 
-        <MoviePopupTabs id={movie.id} />
+        <MoviePopupTabs id={movie.id} name={movie.title} />
       </DialogHeader>
     </DialogContent>
   )

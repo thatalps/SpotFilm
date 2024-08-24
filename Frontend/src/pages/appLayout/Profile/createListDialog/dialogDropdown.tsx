@@ -22,7 +22,7 @@ interface ISearchSchema extends z.infer<typeof searchSchema> {}
 export function DialogDropdown({
   selectDropdownMovie,
 }: {
-  selectDropdownMovie: (movie: Pick<ICreateListSchema, 'movie'>) => void
+  selectDropdownMovie: (movie) => void
 }) {
   const triggerRef = useRef<HTMLInputElement | null>(null)
   const { handleSubmit, control } = useForm<ISearchSchema>({

@@ -1,10 +1,16 @@
 import { apiAxios } from '../../../axios.config.ts'
-import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/createListDialog.tsx'
+import { ICreateListSchema, IDataId, IMovie } from '@/types/interfaces.tsx'
+
+interface IcreateCustomListProps {
+  title: string
+  movieId: number
+  userId: number
+}
 
 export async function createCustomList(
-  newList: ICreateListSchema & { id: number },
-) {
-  const response = await apiAxios.post('lista/criacao', newList)
+  data: IcreateCustomListProps,
+): Promise<IDataId> {
+  const response = await apiAxios.post('lista/criacao', data)
 
   if (response.status === 401) {
     throw new Error('Token não fornecido.')
@@ -13,4 +19,6 @@ export async function createCustomList(
   if (response.status !== 200) {
     throw new Error('Tente novamente mais tarde.')
   }
+
+  return response.data
 }

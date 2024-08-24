@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createListSchema } from '@/types/schemas.tsx'
+import { addToListSchema, createListSchema } from '@/types/schemas.tsx'
 
 export interface IMoviesParams {
   genreId: string | undefined
@@ -20,7 +20,7 @@ export interface IMovie {
   poster_path: string | null
   vote_average: number | null
   id: number
-  title: string | null
+  title: string
   overview: string | null
   genres_id: IGenre[] | null
   backdrop_path: string | null
@@ -54,9 +54,10 @@ export interface IUserRating {
 }
 
 export interface ICreateListSchema extends z.infer<typeof createListSchema> {}
+export interface IAddtoListSchema extends z.infer<typeof addToListSchema> {}
 
 export interface IList {
-  id: string
+  id: number
   title: string
   movies: IMovie[]
 }

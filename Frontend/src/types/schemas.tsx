@@ -49,3 +49,11 @@ export const createListSchema = z.object({
     name: z.string(),
   }),
 })
+
+export const addToListSchema = z.object({
+  list: z.object({
+    id: z.number(),
+    title: z.string(),
+  }),
+  movieId: z.number().nonnegative(),
+})

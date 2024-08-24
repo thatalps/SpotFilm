@@ -16,14 +16,14 @@ import { createCustomList } from '@/api/list/CreateCustomList.ts'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
 import { toast } from 'sonner'
 import { createListSchema } from '@/types/schemas.tsx'
-import { ICreateListSchema } from '@/types/interfaces.tsx'
+import { ICreateListSchema, IMovie } from '@/types/interfaces.tsx'
 
 export function CreateListDialog() {
-  const [selectedMovie, setSelectedMovie] = useState<string | undefined>(
+  const [selectedMovie, setSelectedMovie] = useState<IMovie | undefined>(
     undefined,
   )
   const [isLoading, setIsLoading] = useState(false)
-  const { user } = useContext(GlobalContext)
+  const { user, addDataToUserLists } = useContext(GlobalContext)
   const listTitle = useRef<HTMLInputElement | null>(null)
   const {
     control,
@@ -50,9 +50,12 @@ export function CreateListDialog() {
     reset()
   }
 
-  function selectDropdownMovie({ movie }: Pick<ICreateListSchema, 'movie'>) {
-    setSelectedMovie(movie.name)
-    setValue('movie', movie)
+  function selectDropdownMovie({ movie }: IMovie) {
+    setSelectedMovie(movie)
+    setValue('movie', {
+      id: movie.id,
+      name: movie.title,
+    })
     listTitle.current?.focus()
   }
 
@@ -61,14 +64,22 @@ export function CreateListDialog() {
     try {
       if (!user?.id) throw new Error('Usuário não logado.')
 
-      await createCustomList({
-        ...data,
-        id: user.id,
+      const createdList = await createCustomList({
+        title: data.title,
+        userId: user.id,
+        movieId: data.movie.id,
+      })
+
+      addDataToUserLists({
+        id: createdList.id,
+        title: data.title,
+        movies: [selectedMovie!],
       })
 
       toast.success('Lista criada com sucesso!')
     } catch (e) {
-      toast.success('Não foi possível criar a lista.')
+      // toast.error('Não foi possível criar a lista.')
+      toast.error(e.message)
       console.log('Não foi possível criar a lista.')
     } finally {
       setIsLoading(false)
@@ -126,7 +137,9 @@ export function CreateListDialog() {
               {selectedMovie && (
                 <span className={'text-white'}>
                   Filme Selecionado!{' '}
-                  <span className={'text-yellow-500'}>{selectedMovie}</span>
+                  <span className={'text-yellow-500'}>
+                    {selectedMovie.title}
+                  </span>
                 </span>
               )}
             </div>

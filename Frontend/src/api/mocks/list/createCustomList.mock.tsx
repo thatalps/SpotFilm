@@ -9,9 +9,10 @@ export const CreateCustomListMock = http.post<
 
   console.log('lista para criar')
   console.log(listToCreate)
-  if (!listToCreate.id) {
-    return new HttpResponse(null, { status: 401 })
-  }
 
-  return new HttpResponse(null, { status: 200 })
+  // if (!listToCreate.id) {
+  //   return new HttpResponse(null, { status: 401 })
+  // }
+
+  return new HttpResponse(JSON.stringify({ id: 5 }), { status: 200 })
 })
