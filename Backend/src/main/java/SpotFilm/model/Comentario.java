@@ -13,12 +13,14 @@ public class Comentario {
     public String conteudo;
     public int idUsuario;
     public int idAvaliacao;
+    public int idFilme;
 
-    public Comentario(LocalDateTime dataCriacao, String descricao, int idUsuario, int idAvaliacao) {
+    public Comentario(LocalDateTime dataCriacao, String descricao, int idUsuario, int idAvaliacao, int idFilme) {
         this.dataCriacao = dataCriacao;
         this.conteudo = descricao;
         this.idUsuario = idUsuario;
         this.idAvaliacao = idAvaliacao;
+        this.idFilme = idFilme;
     }
 
     @Override

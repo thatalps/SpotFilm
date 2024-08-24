@@ -23,9 +23,6 @@ public class Avaliacao
     @Column(name = "quantidade_estrelas")
     private Integer quantidadeEstrelas;
 
-    @ElementCollection
-    private List<String> comentarioIds;
-
     protected Avaliacao() {
 
     }
@@ -33,14 +30,11 @@ public class Avaliacao
     public Avaliacao (int idFilme, int quantidadeEstrelas, List<String> comentarioIds) {
         this.idFilme = idFilme;
         this.quantidadeEstrelas = quantidadeEstrelas;
-        this.comentarioIds = comentarioIds;
     }
 
     public int getQuantidadeEstrelas() {
         return quantidadeEstrelas;
     }
 
-    public Iterable<String> getComentarioIds() {
-        return comentarioIds;
-    }
+    public Long getId() {return id;}
 }

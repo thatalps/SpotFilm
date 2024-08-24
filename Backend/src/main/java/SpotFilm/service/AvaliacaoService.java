@@ -18,11 +18,10 @@ public class AvaliacaoService {
     @Autowired
     private ComentarioRepository comentarioRepository;
 
-    public Avaliacao getAvaliacaoComComentarios(Long avaliacaoId) {
+    public Avaliacao getAvaliacao(Long avaliacaoId) {
         Optional<Avaliacao> avaliacaoOpt = avaliacaoRepository.findById(avaliacaoId);
         if (avaliacaoOpt.isPresent()) {
             Avaliacao avaliacao = avaliacaoOpt.get();
-            List<Comentario> comentarios = comentarioRepository.findAllById(avaliacao.getComentarioIds());
             return avaliacao;
         }
         return null;
