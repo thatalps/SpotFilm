@@ -1,5 +1,6 @@
 package SpotFilm.controller;
 
+import SpotFilm.dto.FilmeComMapa;
 import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -31,31 +33,51 @@ public class ApiController {
     }
 
     @GetMapping("/titulo/{titulo}")
-    public ResponseEntity<FilmeRespostaApi> getFilmesPorTitulo(@PathVariable String titulo) {
+    public ResponseEntity<List<FilmeComMapa>> getFilmesPorTitulo(@PathVariable String titulo) {
         FilmeRespostaApi filmes = apiService.getFilmesPorTitulo(titulo);
         if (filmes == null){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(filmes);
+
+        List<Genero> generos = apiService.getListaGenero().getGenres();
+        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
+
+        // Converte a lista de Filmes para FilmeComMapa usando o método separado
+        List<FilmeComMapa> filmesComMapa = apiService.converteListaFilmes(filmes.getResults(), generoMap);
+
+        return ResponseEntity.ok(filmesComMapa);
     }
 
     @GetMapping("/recomendacao/{idFilme}")
-    public ResponseEntity<FilmeRespostaApi> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
+    public ResponseEntity<List<FilmeComMapa>> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
         FilmeRespostaApi filmes = apiService.getRecomendacaoPorFilme(idFilme);
         if (filmes == null){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(filmes);
+
+        List<Genero> generos = apiService.getListaGenero().getGenres();
+        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
+
+        // Converte a lista de Filmes para FilmeComMapa usando o método separado
+        List<FilmeComMapa> filmesComMapa = apiService.converteListaFilmes(filmes.getResults(), generoMap);
+
+        return ResponseEntity.ok(filmesComMapa);
     }
 
     @GetMapping("/genero/{idGenero}")
-    public ResponseEntity<FilmeRespostaApi> getFilmesPorGenero(@PathVariable int idGenero) {
+    public ResponseEntity<List<FilmeComMapa>> getFilmesPorGenero(@PathVariable int idGenero) {
         FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
         if (filmes == null){
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(filmes);
+        List<Genero> generos = apiService.getListaGenero().getGenres();
+        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
+
+        // Converte a lista de Filmes para FilmeComMapa usando o método separado
+        List<FilmeComMapa> filmesComMapa = apiService.converteListaFilmes(filmes.getResults(), generoMap);
+
+        return ResponseEntity.ok(filmesComMapa);
     }
 
     @GetMapping("/lista-de-generos")
@@ -66,18 +88,4 @@ public class ApiController {
         }
         return ResponseEntity.ok(generos);
     }
-
-    /*
-    private List<Genero> getListaGenerosFilme(List<Integer> generosId){
-        List<Genero> generos = new ArrayList<>();
-
-        GeneroRespostaApi listaGeneros = apiService.getListaGenero();
-
-        for (Integer id : generosId) {
-            generos.add(listaGeneros.getGenres().get(id));
-        }
-
-        return generos;
-    }
-    */
 }

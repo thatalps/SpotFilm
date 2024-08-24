@@ -15,13 +15,13 @@ public class UsuarioInfo {
 
     @Setter
     @Getter
-    private int generoFav1;
+    private Genero generoFav1;
 
     @Setter
     @Getter
-    private int generoFav2;
+    private Genero generoFav2;
 
-    public UsuarioInfo(long id, String nome, int generoFav1, int generoFav2) {
+    public UsuarioInfo(long id, String nome, Genero generoFav1, Genero generoFav2) {
         super();
         this.id = id;
         this.nome = nome;

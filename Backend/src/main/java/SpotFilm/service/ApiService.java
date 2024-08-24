@@ -1,13 +1,20 @@
 package SpotFilm.service;
 
+import SpotFilm.dto.FilmeComMapa;
 import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
+import SpotFilm.model.Filmes;
+import SpotFilm.model.Genero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -79,5 +86,39 @@ public class ApiService {
     public GeneroRespostaApi getListaGenero(){
         String url = String.format(urlBase+"genre/movie/list?&language=pt-BR&api_key=%s", key);
         return getGenero(url);
+    }
+
+    public Map<Integer, Genero> getMapGenero(){
+        List<Genero> generos = getListaGenero().getGenres();
+
+        return generos.stream().collect(Collectors.toMap(Genero::getId, genero -> genero));
+    }
+
+    public Map<Integer, Genero> getMapGenero(List<Genero> generos){
+        return generos.stream().collect(Collectors.toMap(Genero::getId, genero -> genero));
+    }
+
+    public List<FilmeComMapa> converteListaFilmes(List<Filmes> filmes, Map<Integer, Genero> generoMap) {
+        return filmes.stream()
+                .map(filme -> {
+                    FilmeComMapa filmeComMapa = new FilmeComMapa();
+                    filmeComMapa.setId(filme.getId());
+                    filmeComMapa.setTitle(filme.getTitle());
+                    filmeComMapa.setOverview(filme.getOverview());
+                    filmeComMapa.setReleaseDate(filme.getReleaseDate());
+                    filmeComMapa.setVoteAverage(filme.getVoteAverage());
+                    filmeComMapa.setBackdropPath(filme.getBackdropPath());
+                    filmeComMapa.setPosterPath(filme.getPosterPath());
+
+                    // Mapeia os genero_ids para objetos Genero usando o generoMap
+                    Map<Integer, Genero> generosMapeados = filme.getGenero_ids().stream()
+                            .filter(generoMap::containsKey)
+                            .collect(Collectors.toMap(id -> id, generoMap::get));
+
+                    filmeComMapa.setGeneros(generosMapeados);
+
+                    return filmeComMapa;
+                })
+                .collect(Collectors.toList());
     }
 }

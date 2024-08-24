@@ -1,11 +1,9 @@
 package SpotFilm.model;
 
-import SpotFilm.dto.GeneroRespostaApi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Filmes {
@@ -50,6 +48,16 @@ public class Filmes {
     @JsonProperty("vote_average")
     private double voteAverage;
 
+    public Filmes(List<Integer> genero_ids, int id, String overview, String releaseDate, String title, double voteAverage) {
+        this.backdropPath = getBackdropPath();
+        this.genero_ids = genero_ids;
+        this.id = id;
+        this.overview = overview;
+        this.posterPath = getPosterPath();
+        this.releaseDate = releaseDate;
+        this.title = title;
+        this.voteAverage = voteAverage;
+    }
 
     public String getBackdropPath() {
         return url + backdropPath;
@@ -58,4 +66,5 @@ public class Filmes {
     public String getPosterPath() {
         return url + posterPath;
     }
+
 }

@@ -1,6 +1,7 @@
 package SpotFilm.model;
 
 import SpotFilm.util.Autenticador;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,7 +50,7 @@ public class Usuario extends SpotFilm.model.Admin
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Avaliacao> avaliacoes;
 
     protected Usuario(){
@@ -79,5 +80,4 @@ public class Usuario extends SpotFilm.model.Admin
                 ", Admin=" + getAdmin() +
                 '}';
     }
-
 }
