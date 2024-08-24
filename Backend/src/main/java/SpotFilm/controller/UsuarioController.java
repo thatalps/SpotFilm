@@ -1,16 +1,20 @@
 package SpotFilm.controller;
 
 import SpotFilm.dto.ApiResposta;
+import SpotFilm.dto.UsuarioInfo;
 import SpotFilm.dto.UsuarioLoginRequest;
 import SpotFilm.model.Usuario;
 import SpotFilm.repository.UsuarioRepository;
 import SpotFilm.util.Autenticador;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -54,4 +58,17 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/usuarios/get_usuario/{idUsuario}")
+    public ResponseEntity<ApiResposta<UsuarioInfo>> getUsuario(@PathVariable Long idUsuario)
+    {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            UsuarioInfo usuarioInfo = new UsuarioInfo(usuario.getId(), usuario.getNome(), usuario.getGeneroPreferido1(), usuario.getGeneroPreferido2());
+            return ResponseEntity.ok(new ApiResposta<>("Usuário encontrado!", usuarioInfo));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResposta<>("Usuário não encontrado!", null));
+        }
+    }
 }
