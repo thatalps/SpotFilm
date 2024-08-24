@@ -58,7 +58,7 @@ public class ApiController {
         return ResponseEntity.ok(filmes);
     }
 
-    @GetMapping("/get_lista_de_generos")
+    @GetMapping("/lista-de-generos")
     public ResponseEntity<GeneroRespostaApi> getListaGenero() {
         GeneroRespostaApi generos = apiService.getListaGenero();
         if (generos == null) {
