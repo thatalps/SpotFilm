@@ -26,7 +26,7 @@ public class ListaController {
         Integer resposta = listaService.criacaoDeLista(nomeLista, idFilme, idUsuario);
         if(resposta==0)
         {
-            ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
                     new ApiResposta<>("Já possui lista com esse nome!", null));
         }
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -38,7 +38,7 @@ public class ListaController {
                                                            @RequestParam int idFilme) {
         int resposta = listaService.inserirFilmeEmLista(idLista, idFilme);
         if(resposta==0) {
-            ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
                     new ApiResposta<>("Filme já inserido na lista!", null));
         }
         return ResponseEntity.status(HttpStatus.OK).body(
