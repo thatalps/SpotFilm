@@ -129,11 +129,6 @@ databaseChangeLog:
                   type: INT
                   constraints:
                     nullable: false
-              - column:
-                  name: id_comentario
-                  type: INT
-                  constraints:
-                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: avaliacao
             baseColumnNames: id_usuario
