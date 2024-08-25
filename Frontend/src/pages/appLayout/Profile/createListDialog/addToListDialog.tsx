@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx'
 import { addMovieToList } from '@/api/list/addMovietoList.ts'
+import { getAllLists } from '@/api/list/getAllLists.ts'
 
 export function AddToListDialog({
   movie: { id, name },
@@ -28,7 +29,7 @@ export function AddToListDialog({
   movie: { id: number; name: string }
 }) {
   const [isLoading, setIsLoading] = useState(false)
-  const { user, userLists } = useContext(GlobalContext)
+  const { user, userLists, createUserLists } = useContext(GlobalContext)
   const {
     control,
     setValue,
@@ -66,6 +67,9 @@ export function AddToListDialog({
         listId: data.list.id,
         userId: user.id,
       })
+
+      const allLists = await getAllLists()
+      createUserLists(allLists)
 
       toast.success('Filme adicionado a lista com sucesso!')
     } catch (e) {
