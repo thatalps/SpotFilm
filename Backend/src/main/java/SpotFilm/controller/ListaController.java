@@ -24,6 +24,11 @@ public class ListaController {
                                                   @RequestParam int idFilme,
                                                   @RequestParam int idUsuario) {
         Integer resposta = listaService.criacaoDeLista(nomeLista, idFilme, idUsuario);
+        if(resposta==0)
+        {
+            ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+                    new ApiResposta<>("Já possui lista com esse nome!", null));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ApiResposta<>("criação da lista feita com sucesso!", resposta));
     }
