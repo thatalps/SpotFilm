@@ -52,6 +52,11 @@ public class UsuarioController {
 
         Usuario usuario = usuarioRepository.findByEmail(email);
 
+        if(usuario == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                    new ApiResposta<>("Credenciais erradas!", null)
+            );
+
         boolean autenticado = autenticador.autenticarUsuario(email, senha, usuario);
 
         if (autenticado) {
