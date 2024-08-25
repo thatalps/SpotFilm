@@ -22,7 +22,7 @@ public class AvaliacaoController {
     {
         int resposta = avaliacaoService.postaAvaliacao(idFilme, idUsuario, pontuacao);
         if(resposta==0) {
-            ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
                     new ApiResposta<>("Ja foi feita avalição desse filme!", null));
         }
         return ResponseEntity.status(HttpStatus.OK).body(
