@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,15 +19,28 @@ public class ComentarioController {
     @Autowired
     ComentarioRepository comentarioRepository;
 
-    @PostMapping("post")
-    public ResponseEntity<String> addComentario(@RequestBody Comentario comentario) {
+    @PostMapping("postar")
+    public ResponseEntity<String> postarComentario(@RequestBody Comentario comentario) {
         comentarioRepository.save(comentario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Comentário postado com sucesso!");
     }
 
-    @GetMapping("get")
-    public List<Comentario> getComentarios(){
-        return comentarioRepository.findAll();
+    @GetMapping("bucarTodos")
+    public ResponseEntity<List<Comentario>> buscarTodosComentarios(){
+        List<Comentario> comentarios = comentarioRepository.findAll();
+        if(comentarios.isEmpty() || comentarios == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<Comentario>());
+        }
+        return ResponseEntity.ok(comentarios);
+    }
+
+    @GetMapping("/buscarPorFilme/{idFilme}")
+    public ResponseEntity<List<Comentario>> buscarPorFilme(@PathVariable Integer idFilme) {
+        List<Comentario> comentarios = comentarioRepository.findByIdFilme(idFilme);
+        if(comentarios.isEmpty() || comentarios == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<Comentario>());
+        }
+        return ResponseEntity.ok(comentarios);
     }
 
 }
