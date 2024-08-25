@@ -28,8 +28,17 @@ public class ListaService {
         return ultimoId;
     }
 
-    public void inserirFilmeEmLista(int idLista, int idFilme) {
-        itemListaRepository.insereItemLista(idLista, idFilme);
+    public int inserirFilmeEmLista(int idLista, int idFilme) {
+        List<Integer> item =itemListaRepository.buscaFilmesPorIdLista(idLista);
+        //se filme não esta na lista, então insere
+        if(item.isEmpty()) {
+            itemListaRepository.insereItemLista(idLista, idFilme);
+            return 1;
+        }
+        if(item.contains(idFilme))
+            return 0;
+        itemListaRepository.insereItemLista(idLista,idFilme);
+        return 1;
     }
 
     public List<ListaRespostaApi> getListasPorIdUsuario(int idUsuario) {

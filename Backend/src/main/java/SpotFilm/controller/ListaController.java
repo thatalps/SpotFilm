@@ -31,7 +31,11 @@ public class ListaController {
     @PutMapping("/insercao/")
     public ResponseEntity<ApiResposta> inserirFilmeEmLista(@RequestParam int idLista,
                                                            @RequestParam int idFilme) {
-        listaService.inserirFilmeEmLista(idLista, idFilme);
+        int resposta = listaService.inserirFilmeEmLista(idLista, idFilme);
+        if(resposta==0) {
+            ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+                    new ApiResposta<>("Filme já inserido na lista!", null));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ApiResposta<>("Inserção do filme feita com sucesso!", null));
     }
