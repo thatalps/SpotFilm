@@ -17,6 +17,7 @@ import { GlobalContext } from '@/context/GlobalContext.tsx'
 import { toast } from 'sonner'
 import { createListSchema } from '@/types/schemas.tsx'
 import { ICreateListSchema, IMovie } from '@/types/interfaces.tsx'
+import { useNavigate } from 'react-router-dom'
 
 export function CreateListDialog() {
   const [selectedMovie, setSelectedMovie] = useState<IMovie | undefined>(
@@ -38,6 +39,7 @@ export function CreateListDialog() {
     },
     mode: 'onSubmit',
   })
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (errors.movie || errors.title) {
@@ -68,6 +70,10 @@ export function CreateListDialog() {
         title: data.title,
         userId: user.id,
         movieId: data.movie.id,
+      })
+
+      navigate('/movies', {
+        state: { label: data.title, movies: [selectedMovie!] },
       })
 
       addDataToUserLists({

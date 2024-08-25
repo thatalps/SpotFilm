@@ -13,19 +13,19 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("comentario")
+@RequestMapping("/comentario")
 public class ComentarioController {
 
     @Autowired
     ComentarioRepository comentarioRepository;
 
-    @PostMapping("postar")
+    @PostMapping("/postar")
     public ResponseEntity<String> postarComentario(@RequestBody Comentario comentario) {
         comentarioRepository.save(comentario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Comentário postado com sucesso!");
     }
 
-    @GetMapping("bucarTodos")
+    @GetMapping("/bucarTodos")
     public ResponseEntity<List<Comentario>> buscarTodosComentarios(){
         List<Comentario> comentarios = comentarioRepository.findAll();
         if(comentarios.isEmpty() || comentarios == null) {

@@ -24,6 +24,11 @@ public class ListaController {
                                                   @RequestParam int idFilme,
                                                   @RequestParam int idUsuario) {
         Integer resposta = listaService.criacaoDeLista(nomeLista, idFilme, idUsuario);
+        if(resposta==0)
+        {
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+                    new ApiResposta<>("Já possui lista com esse nome!", null));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ApiResposta<>("criação da lista feita com sucesso!", resposta));
     }
@@ -31,7 +36,11 @@ public class ListaController {
     @PutMapping("/insercao/")
     public ResponseEntity<ApiResposta> inserirFilmeEmLista(@RequestParam int idLista,
                                                            @RequestParam int idFilme) {
-        listaService.inserirFilmeEmLista(idLista, idFilme);
+        int resposta = listaService.inserirFilmeEmLista(idLista, idFilme);
+        if(resposta==0) {
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(
+                    new ApiResposta<>("Filme já inserido na lista!", null));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ApiResposta<>("Inserção do filme feita com sucesso!", null));
     }

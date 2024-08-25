@@ -11,6 +11,7 @@ interface IGlobalContext {
   genres: IGenre[] | undefined
   userLists: IList[] | undefined
   addDataToUserLists: (data: IList) => void
+  createUserLists: (data: IList[]) => void
 }
 
 export const GlobalContext = createContext({} as IGlobalContext)
@@ -63,6 +64,9 @@ export function ContextProvider({ children }) {
     setUser(data)
   }
 
+  function createUserLists(data: IList[]) {
+    setUserLists(data)
+  }
   function addDataToUserLists(data: IList) {
     if (!userLists || userLists.length === 0) setUserLists([data])
     else setUserLists((prevState) => [data, ...prevState])
@@ -77,6 +81,7 @@ export function ContextProvider({ children }) {
         genres,
         userLists,
         addDataToUserLists,
+        createUserLists,
       }}
     >
       {children}

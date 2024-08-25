@@ -22,14 +22,33 @@ public class ListaService {
     ApiService apiService;
 
     public Integer criacaoDeLista(String nomeLista, int idFilme, int idUsuario) {
+        //pega listas do usuario
+        Map<Integer,String> hashLista =  converterParaMap(listaRepository.getListasPorIdUsuario(idUsuario));
+        Set<Integer> chaves = hashLista.keySet();
+        //percorre lista conferindo se nome da lista já existe
+        for (Integer chave : chaves) {
+            String nomeListaHash = hashLista.get(chave);
+            if(nomeLista.equals(nomeListaHash)) {
+                return 0;
+            }
+        }
         listaRepository.criacaoDeLista(nomeLista, idUsuario);
         int ultimoId = listaRepository.buscarUltimoIdListaCriado();
         itemListaRepository.insereItemLista(ultimoId, idFilme);
         return ultimoId;
     }
 
-    public void inserirFilmeEmLista(int idLista, int idFilme) {
-        itemListaRepository.insereItemLista(idLista, idFilme);
+    public int inserirFilmeEmLista(int idLista, int idFilme) {
+        List<Integer> item =itemListaRepository.buscaFilmesPorIdLista(idLista);
+        //se filme não esta na lista, então insere
+        if(item.isEmpty()) {
+            itemListaRepository.insereItemLista(idLista, idFilme);
+            return 1;
+        }
+        if(item.contains(idFilme))
+            return 0;
+        itemListaRepository.insereItemLista(idLista,idFilme);
+        return 1;
     }
 
     public List<ListaRespostaApi> getListasPorIdUsuario(int idUsuario) {

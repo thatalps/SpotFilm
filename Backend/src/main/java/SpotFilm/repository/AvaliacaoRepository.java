@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface AvaliacaoRepository extends CrudRepository<Avaliacao, Long> {
 
@@ -21,4 +23,9 @@ public interface AvaliacaoRepository extends CrudRepository<Avaliacao, Long> {
     public void postaAvaliacao(@Param("pontuacao") int pontuacao,
                                @Param("idFilme") int idFilme,
                                @Param("idUsuario") int idUsuario);
+
+    @Query(value = "select id_avaliacao from avaliacao " +
+            "where id_filme= :idFilme and id_usuario= :idUsuario ;", nativeQuery = true)
+    public Optional<Integer> confereSeAvaliacaoJaExiste(@Param("idFilme") int idFilme, @Param("idUsuario") int idUsuario);
+
 }
