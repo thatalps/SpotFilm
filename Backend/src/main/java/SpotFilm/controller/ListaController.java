@@ -1,11 +1,15 @@
 package SpotFilm.controller;
 
 
-import SpotFilm.model.Filme;
+import SpotFilm.dto.ApiResposta;
+import SpotFilm.dto.ListaRespostaApi;
 import SpotFilm.service.ListaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -15,18 +19,27 @@ public class ListaController {
     @Autowired
     ListaService listaService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Filme> getListaPorId(@PathVariable long idLista) {
-//       busca no service os filmes e formatar pro front
-//        Optional<Filme> filmes = listaService.getListaPorId(idLista);
-        return ResponseEntity.ok(null);
+    @PostMapping("/criacao/")
+    public ResponseEntity<ApiResposta> criacaoDeLista(@RequestParam String nomeLista,
+                                                  @RequestParam int idFilme,
+                                                  @RequestParam int idUsuario) {
+        Integer resposta = listaService.criacaoDeLista(nomeLista, idFilme, idUsuario);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResposta<>("criação da lista feita com sucesso!", resposta));
     }
 
-    @GetMapping("/{nomeLista}")
-    public ResponseEntity<Filme> getListaPorNomeLista(@PathVariable String nomeLista) {
-//       busca no service os filmes e formatar pro front
-//        Optional<Filme> filmes = listaService.getListaPorNomeLista(nomeLista);
-        return ResponseEntity.ok(null);
+    @PutMapping("/insercao/")
+    public ResponseEntity<ApiResposta> inserirFilmeEmLista(@RequestParam int idLista,
+                                                           @RequestParam int idFilme) {
+        listaService.inserirFilmeEmLista(idLista, idFilme);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResposta<>("Inserção do filme feita com sucesso!", null));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<ListaRespostaApi>> getListasPorIdUsuario(@RequestParam int idUsuario) {
+        List<ListaRespostaApi> resposta = listaService.getListasPorIdUsuario(idUsuario);
+        return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 
 }
