@@ -7,10 +7,10 @@ import SpotFilm.model.Filme;
 import SpotFilm.model.Genero;
 import SpotFilm.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class ApiController {
     public ResponseEntity<Filme> getFilmePorId(@PathVariable long id) {
         Filme filme = apiService.getFilmePorId(id);
         if (filme == null) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(filme);
     }
@@ -36,7 +36,7 @@ public class ApiController {
     public ResponseEntity<List<FilmeComMapa>> getFilmesPorTitulo(@PathVariable String titulo) {
         FilmeRespostaApi filmes = apiService.getFilmesPorTitulo(titulo);
         if (filmes == null){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         List<Genero> generos = apiService.getListaGenero().getGenres();
@@ -52,7 +52,7 @@ public class ApiController {
     public ResponseEntity<List<FilmeComMapa>> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
         FilmeRespostaApi filmes = apiService.getRecomendacaoPorFilme(idFilme);
         if (filmes == null){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         List<Genero> generos = apiService.getListaGenero().getGenres();
@@ -68,7 +68,7 @@ public class ApiController {
     public ResponseEntity<List<FilmeComMapa>> getFilmesPorGenero(@PathVariable int idGenero) {
         FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
         if (filmes == null){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         List<Genero> generos = apiService.getListaGenero().getGenres();
@@ -84,7 +84,7 @@ public class ApiController {
     public ResponseEntity<GeneroRespostaApi> getListaGenero() {
         GeneroRespostaApi generos = apiService.getListaGenero();
         if (generos == null) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(generos);
     }
