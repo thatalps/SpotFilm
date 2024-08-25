@@ -65,7 +65,7 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/get_usuario/{idUsuario}")
+    @GetMapping("/{idUsuario}")
     public ResponseEntity<ApiResposta<UsuarioInfo>> getUsuario(@PathVariable Long idUsuario)
     {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
