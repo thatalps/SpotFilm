@@ -1,13 +1,8 @@
 package SpotFilm.service;
-import SpotFilm.model.Avaliacao;
-import SpotFilm.model.Comentario;
+
 import SpotFilm.repository.AvaliacaoRepository;
-import SpotFilm.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AvaliacaoService {
@@ -15,16 +10,11 @@ public class AvaliacaoService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
-    @Autowired
-    private ComentarioRepository comentarioRepository;
-
-    public Avaliacao getAvaliacao(Long avaliacaoId) {
-        Optional<Avaliacao> avaliacaoOpt = avaliacaoRepository.findById(avaliacaoId);
-        if (avaliacaoOpt.isPresent()) {
-            Avaliacao avaliacao = avaliacaoOpt.get();
-            return avaliacao;
-        }
-        return null;
+    public void postaAvaliacao(int idFilme, int idUsuario, int pontuacao) {
+      avaliacaoRepository.postaAvaliacao(pontuacao,idFilme,idUsuario);
+    }
+    public int getAvaliacao(int idFilme, int idUsuario) {
+        return avaliacaoRepository.buscaAvaliacao(idFilme, idUsuario);
     }
 
 }

@@ -1,20 +1,36 @@
 package SpotFilm.controller;
 
-import SpotFilm.repository.AvaliacaoRepository;
+import SpotFilm.dto.ApiResposta;
+import SpotFilm.service.AvaliacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/cometario")
+@RequestMapping("/avaliacao")
 public class AvaliacaoController {
 
     @Autowired
-    AvaliacaoRepository avaliacaoRepository;
+    AvaliacaoService avaliacaoService;
 
+    @PutMapping("/postar/")
+    public ResponseEntity<ApiResposta> postaAvaliacao(@RequestParam int idFilme,
+                                                             @RequestParam int idUsuario,
+                                                             @RequestParam int pontuacao)
+    {
+        avaliacaoService.postaAvaliacao(idFilme, idUsuario, pontuacao);
+        return ResponseEntity.status(HttpStatus.OK).body(
+            new ApiResposta<>("Avaliação do filme feita com sucesso!", null));
+    }
 
-
-
+    @GetMapping("/buscar/")
+    public ResponseEntity<ApiResposta> postaAvaliacao(@RequestParam int idFilme,
+                                                      @RequestParam int idUsuario)
+    {
+        int resposta = avaliacaoService.getAvaliacao(idFilme, idUsuario);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResposta<>("Busca de avaliação feita com sucesso!", resposta));
+    }
 }
