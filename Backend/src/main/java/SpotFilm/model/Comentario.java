@@ -14,18 +14,12 @@ public class Comentario {
     public int idUsuario;
     public int idFilme;
 
+    public Comentario(){}
+
     public Comentario(LocalDateTime dataCriacao, String descricao, int idUsuario, int idFilme) {
         this.dataCriacao = dataCriacao;
         this.conteudo = descricao;
         this.idUsuario = idUsuario;
         this.idFilme = idFilme;
     }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Comentário[id=%s, dataCriacao='%s', descricao='%s', idUsuario='%s']",
-                id, dataCriacao, conteudo, idUsuario);
-    }
-
 }

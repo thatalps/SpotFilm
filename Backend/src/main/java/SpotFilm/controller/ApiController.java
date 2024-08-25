@@ -24,7 +24,7 @@ public class ApiController {
     private ApiService apiService;
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Filme> getFilmePorId(@PathVariable long id) {
+    public ResponseEntity<Filme> getFilmePorId(@PathVariable Long id) {
         Filme filme = apiService.getFilmePorId(id);
         if (filme == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

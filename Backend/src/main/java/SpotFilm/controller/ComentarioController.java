@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/comentario")
+@RequestMapping("api/comentario")
 public class ComentarioController {
 
     @Autowired
@@ -24,9 +24,22 @@ public class ComentarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Comentário postado com sucesso!");
     }
 
-    @GetMapping("get")
-    public List<Comentario> getComentarios(){
-        return comentarioRepository.findAll();
+    @GetMapping("buscarTodos")
+    public ResponseEntity<List<Comentario>> buscarTodos(){
+        List<Comentario> comentarios = comentarioRepository.findAll();
+        if(comentarios.isEmpty() || comentarios == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(comentarios);
+    }
+
+    @GetMapping("/buscarPorFilme/{idFilme}")
+    public ResponseEntity<List<Comentario>> buscarPorFilme(@PathVariable Integer idFilme){
+        List<Comentario> comentarios = comentarioRepository.findByIdFilme(idFilme);
+        if(comentarios.isEmpty() || comentarios == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(comentarios);
     }
 
 }
