@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw'
 import { IUserProfile } from '@/types/interfaces.tsx'
 
 export const getUserProfileMock = http.post<never, IUserProfile>(
-  '/users/profile',
+  '/usuarios/*',
   async () => {
     return new HttpResponse(
       JSON.stringify({

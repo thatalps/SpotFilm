@@ -4,7 +4,7 @@ import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/cr
 export const CreateCustomListMock = http.post<
   never,
   ICreateListSchema & { id: number }
->('lista/criacao', async ({ request }) => {
+>('/lista/criacao/*', async ({ request }) => {
   const listToCreate = await request.json()
 
   console.log('lista para criar')

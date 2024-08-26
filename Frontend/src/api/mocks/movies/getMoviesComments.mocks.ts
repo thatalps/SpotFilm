@@ -74,6 +74,9 @@ export const commentsMock: IComment[] = [
   },
 ]
 
-export const GetMoviesCommentsMocks = http.get('movie/comments', () => {
-  return new HttpResponse(JSON.stringify(commentsMock))
-})
+export const GetMoviesCommentsMocks = http.get(
+  '/comentario/buscarPorFilme/*',
+  () => {
+    return new HttpResponse(JSON.stringify(commentsMock))
+  },
+)

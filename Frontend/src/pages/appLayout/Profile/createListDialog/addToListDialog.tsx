@@ -65,10 +65,9 @@ export function AddToListDialog({
       await addMovieToList({
         movieId: data.movieId,
         listId: data.list.id,
-        userId: user.id,
       })
 
-      const allLists = await getAllLists()
+      const allLists = await getAllLists({ id: user.id })
       createUserLists(allLists)
 
       toast.success('Filme adicionado a lista com sucesso!')

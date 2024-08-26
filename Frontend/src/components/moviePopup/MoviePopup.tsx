@@ -15,11 +15,11 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
     >
       <DialogHeader className={'justify-start'}>
         <picture className={'relative'}>
-          {movie.backdrop_path !== null ? (
+          {movie.backdropPath !== null ? (
             <img
               src={
-                movie.backdrop_path !== null
-                  ? movie.backdrop_path
+                movie.backdropPath !== null
+                  ? movie.backdropPath
                   : MovieBackground
               }
               alt={'Fundo do filme'}
@@ -42,8 +42,8 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
           <picture className={'my-2 top-0 w-2/6'}>
             <img
               src={
-                movie.poster_path !== null
-                  ? movie.poster_path
+                movie.posterPath !== null
+                  ? movie.posterPath
                   : RandomMoviesPoster
               }
               className={'h-[15.625rem] rounded-lg object-cover w-full'}
@@ -56,16 +56,16 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
                 <div>
                   <h2 className={'font-bold text-2xl py-2'}>{movie.title}</h2>
 
-                  <div className={'flex gap-2 my-2'}>
-                    {movie.genres_id &&
-                      movie.genres_id.map((genre) => {
-                        return <Badge variant={'secondary'}>{genre.name}</Badge>
-                      })}
-                  </div>
+                  {/* <div className={'flex gap-2 my-2'}> */}
+                  {/*  {movie.generos && */}
+                  {/*    movie.generos.map((genre) => { */}
+                  {/*      return <Badge variant={'secondary'}>{genre.name}</Badge> */}
+                  {/*    })} */}
+                  {/* </div> */}
                 </div>
 
-                {movie.vote_average && (
-                  <RadialChart rating={Math.round(movie.vote_average)} />
+                {movie.voteAverage && (
+                  <RadialChart rating={Math.round(movie.voteAverage)} />
                 )}
               </div>
 

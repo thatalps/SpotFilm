@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-export const GetMoviesByNameMock = http.get('/filme/titulo/*', async () => {
+export const GetMoviesByNameMock = http.get('/api/filme/titulo/*', async () => {
   // return new HttpResponse(JSON.stringify([]))
 
   return new HttpResponse(

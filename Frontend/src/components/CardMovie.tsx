@@ -17,8 +17,8 @@ export function CardMovie(movie: IMovie) {
             <picture>
               <img
                 src={
-                  movie.poster_path !== null
-                    ? movie.poster_path
+                  movie.posterPath !== null
+                    ? movie.posterPath
                     : RanddomMoviesPoster
                 }
                 className={'min-h-[337px] rounded-lg object-cover'}

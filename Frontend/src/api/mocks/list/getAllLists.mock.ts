@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-export const GetAllListsMock = http.get(`lista`, async () => {
+export const GetAllListsMock = http.get(`/lista/*`, async () => {
   return new HttpResponse(
     JSON.stringify([
       {

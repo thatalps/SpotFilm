@@ -1,8 +1,8 @@
 import { apiAxios } from '../../../axios.config.ts'
-import { IList } from '@/types/interfaces.tsx'
+import { IDataId, IList } from '@/types/interfaces.tsx'
 
-export async function getAllLists(): Promise<IList[]> {
-  const response = await apiAxios.get(`lista`)
+export async function getAllLists({ id }: IDataId): Promise<IList[]> {
+  const response = await apiAxios.get(`/lista/?idUsuario=${id}`)
 
   return response.data
 }

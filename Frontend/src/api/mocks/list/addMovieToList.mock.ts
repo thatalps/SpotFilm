@@ -2,8 +2,8 @@ import { http, HttpResponse } from 'msw'
 import { ICreateListSchema } from '@/pages/appLayout/Profile/createListDialog/createListDialog.tsx'
 import { IAddMovieToListRequest } from '@/api/list/addMovietoList.ts'
 
-export const AddMovieToListMock = http.post<never, IAddMovieToListRequest>(
-  'lista/adicionar_filme_na_lista',
+export const AddMovieToListMock = http.put<never, IAddMovieToListRequest>(
+  '/lista/insercao/#',
   async () => {
     // const movieToAddToList = await request.json()
 

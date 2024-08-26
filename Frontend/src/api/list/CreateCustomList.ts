@@ -10,7 +10,10 @@ interface IcreateCustomListProps {
 export async function createCustomList(
   data: IcreateCustomListProps,
 ): Promise<IDataId> {
-  const response = await apiAxios.post('lista/criacao', data)
+  const response = await apiAxios.post(
+    `lista/criacao/?nomeLista=${data.title}&idFilme=${data.movieId}&idUsuario=${data.userId}`,
+    data,
+  )
 
   if (response.status === 401) {
     throw new Error('Token não fornecido.')

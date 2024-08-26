@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-export const GetAllGenresMocks = http.get('get_lista_de_generos', () => {
+export const GetAllGenresMocks = http.get('/api/filme/lista-de-generos', () => {
   return new HttpResponse(
     JSON.stringify({
       genres: [

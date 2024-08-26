@@ -22,9 +22,9 @@ export function ContextProvider({ children }) {
   const [genres, setGenres] = useState<IGenre[]>()
 
   useEffect(() => {
-    getLocalStorage()
-
-    if (!userLists) getAllUserList()
+    getLocalStorage().then(() => {
+      if (!userLists && user && user.id) getAllUserList()
+    })
 
     try {
       getAllGenres().then((res) => setGenres(res.genres))
@@ -56,7 +56,7 @@ export function ContextProvider({ children }) {
   }
 
   async function getAllUserList() {
-    const response = await getAllLists()
+    const response = await getAllLists({ id: user!.id })
     setUserLists(response)
   }
 

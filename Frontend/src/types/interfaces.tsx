@@ -16,14 +16,14 @@ export interface IGenre {
 }
 
 export interface IMovie {
-  release_date: string | null
-  poster_path: string | null
-  vote_average: number | null
+  releaseDate: string | null
+  posterPath: string | null
+  voteAverage: number | null
   id: number
   title: string
   overview: string | null
-  genres_id: IGenre[] | null
-  backdrop_path: string | null
+  generos: IGenre[] | null
+  backdropPath: string | null
 }
 
 export interface IComment {
