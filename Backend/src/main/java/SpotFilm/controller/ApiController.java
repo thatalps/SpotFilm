@@ -80,6 +80,21 @@ public class ApiController {
         return ResponseEntity.ok(filmesComMapa);
     }
 
+    @GetMapping("/recomendacao_genero/{idGenero1}/{idGenero2}")
+    public ResponseEntity<List<FilmeComMapa>> getRecomendacoesPorGenero(@PathVariable int idGenero1, @PathVariable int idGenero2) {
+        FilmeRespostaApi filmes = apiService.geraRecomendacoes(idGenero1, idGenero2);
+        if (filmes == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        List<Genero> generos = apiService.getListaGenero().getGenres();
+        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
+
+        List<FilmeComMapa> filmesComMapas = apiService.converteListaFilmes(filmes.getResults(), generoMap);
+
+        return ResponseEntity.ok(filmesComMapas);
+    }
+
     @GetMapping("/lista-de-generos")
     public ResponseEntity<GeneroRespostaApi> getListaGenero() {
         GeneroRespostaApi generos = apiService.getListaGenero();

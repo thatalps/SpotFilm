@@ -12,8 +12,10 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -120,5 +122,32 @@ public class ApiService {
                     return filmeComMapa;
                 })
                 .collect(Collectors.toList());
+    }
+
+
+    public FilmeRespostaApi geraRecomendacoes(int genero1, int genero2){
+        FilmeRespostaApi filme = getFilmesPorGenero(genero1);
+        FilmeRespostaApi filme2 = getFilmesPorGenero(genero2);
+        FilmeRespostaApi filmesFiltrados = new FilmeRespostaApi();
+
+        int id_filme = 0;
+        int escolhaGenero = 0;
+
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            escolhaGenero = random.nextInt(1,2);
+            id_filme = random.nextInt(filme.getTotal_results());
+
+            if (escolhaGenero == 1){
+                filmesFiltrados.getResults().add(filme.getResults().get(id_filme));
+                filme.getResults().remove(id_filme);
+            } else {
+                filmesFiltrados.getResults().add(filme2.getResults().get(id_filme));
+                filme2.getResults().remove(id_filme);
+            }
+        }
+
+        return filmesFiltrados;
     }
 }
