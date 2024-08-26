@@ -40,7 +40,7 @@ public class UsuarioController {
     {
         Usuario usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
 
-        if(usuarioExistente == null)
+        if(usuarioExistente != null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario já existente!");
 
         usuario.setSenha(autenticador.criptografar(usuario.getSenha()));
