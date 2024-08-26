@@ -1,7 +1,5 @@
 package SpotFilm.controller;
 
-import SpotFilm.dto.FilmeComMapa;
-import SpotFilm.dto.FilmeRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
 import SpotFilm.model.Genero;
@@ -33,66 +31,43 @@ public class ApiController {
     }
 
     @GetMapping("/titulo/{titulo}")
-    public ResponseEntity<List<FilmeComMapa>> getFilmesPorTitulo(@PathVariable String titulo) {
-        FilmeRespostaApi filmes = apiService.getFilmesPorTitulo(titulo);
+    public ResponseEntity<List<Filme>> getFilmesPorTitulo(@PathVariable String titulo) {
+        List<Filme> filmes = apiService.getFilmesPorTitulo(titulo);
         if (filmes == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        List<Genero> generos = apiService.getListaGenero().getGenres();
-        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
 
-        // Converte a lista de Filmes para FilmeComMapa usando o método separado
-        List<FilmeComMapa> filmesComMapa = apiService.converteListaFilmes(filmes.getResults(), generoMap);
-
-        return ResponseEntity.ok(filmesComMapa);
+        return ResponseEntity.ok(filmes);
     }
 
     @GetMapping("/recomendacao/{idFilme}")
-    public ResponseEntity<List<FilmeComMapa>> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
-        FilmeRespostaApi filmes = apiService.getRecomendacaoPorFilme(idFilme);
+    public ResponseEntity<List<Filme>> getRecomendacaoPorFilmes(@PathVariable Long idFilme) {
+        List<Filme> filmes = apiService.getRecomendacaoPorFilme(idFilme);
         if (filmes == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        List<Genero> generos = apiService.getListaGenero().getGenres();
-        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
-
-        // Converte a lista de Filmes para FilmeComMapa usando o método separado
-        List<FilmeComMapa> filmesComMapa = apiService.converteListaFilmes(filmes.getResults(), generoMap);
-
-        return ResponseEntity.ok(filmesComMapa);
+        return ResponseEntity.ok(filmes);
     }
 
     @GetMapping("/genero/{idGenero}")
-    public ResponseEntity<List<FilmeComMapa>> getFilmesPorGenero(@PathVariable int idGenero) {
-        FilmeRespostaApi filmes = apiService.getFilmesPorGenero(idGenero);
+    public ResponseEntity<List<Filme>> getFilmesPorGenero(@PathVariable Integer idGenero) {
+        List<Filme> filmes = apiService.getFilmesPorGenero(idGenero);
         if (filmes == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        List<Genero> generos = apiService.getListaGenero().getGenres();
-        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
-
-        // Converte a lista de Filmes para FilmeComMapa usando o método separado
-        List<FilmeComMapa> filmesComMapa = apiService.converteListaFilmes(filmes.getResults(), generoMap);
-
-        return ResponseEntity.ok(filmesComMapa);
+        return ResponseEntity.ok(filmes);
     }
 
     @GetMapping("/recomendacao_genero/{idGenero1}/{idGenero2}")
-    public ResponseEntity<List<FilmeComMapa>> getRecomendacoesPorGenero(@PathVariable int idGenero1, @PathVariable int idGenero2) {
-        FilmeRespostaApi filmes = apiService.geraRecomendacoes(idGenero1, idGenero2);
+    public ResponseEntity<List<Filme>> getRecomendacoesPorGenero(@PathVariable int idGenero1, @PathVariable int idGenero2) {
+        List<Filme> filmes = apiService.geraRecomendacoes(idGenero1, idGenero2);
         if (filmes == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-
-        List<Genero> generos = apiService.getListaGenero().getGenres();
-        Map<Integer, Genero> generoMap = apiService.getMapGenero(generos);
-
-        List<FilmeComMapa> filmesComMapas = apiService.converteListaFilmes(filmes.getResults(), generoMap);
-
-        return ResponseEntity.ok(filmesComMapas);
+        return ResponseEntity.ok(filmes);
     }
 
     @GetMapping("/lista-de-generos")

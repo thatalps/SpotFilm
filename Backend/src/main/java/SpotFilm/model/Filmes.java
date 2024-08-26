@@ -17,7 +17,7 @@ public class Filmes {
     @Setter
     @Getter
     @JsonProperty("genre_ids")
-    private List<Integer> genero_ids;
+    private List<Integer> generoIds;
 
     @Setter
     @Getter
@@ -50,7 +50,7 @@ public class Filmes {
 
     public Filmes(List<Integer> genero_ids, int id, String overview, String releaseDate, String title, double voteAverage) {
         this.backdropPath = getBackdropPath();
-        this.genero_ids = genero_ids;
+        this.generoIds = genero_ids;
         this.id = id;
         this.overview = overview;
         this.posterPath = getPosterPath();

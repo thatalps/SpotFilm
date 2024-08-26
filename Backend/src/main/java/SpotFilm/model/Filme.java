@@ -47,6 +47,16 @@ public class Filme {
     @JsonProperty("vote_average")
     private double voteAverage;
 
+    public Filme(String backdropPath, List<Genero> generos, int id, String overview, String posterPath, String releaseDate, String title, double voteAverage) {
+        this.backdropPath = backdropPath;
+        this.generos = generos;
+        this.id = id;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.releaseDate = releaseDate;
+        this.title = title;
+        this.voteAverage = voteAverage;
+    }
 
     public String getBackdropPath() {
         return url + backdropPath;

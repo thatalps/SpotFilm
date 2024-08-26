@@ -1,10 +1,8 @@
 package SpotFilm.service;
 
-import SpotFilm.dto.FilmeComMapa;
-import SpotFilm.dto.FilmeRespostaApi;
+import SpotFilm.dto.FilmesRespostaApi;
 import SpotFilm.dto.GeneroRespostaApi;
 import SpotFilm.model.Filme;
-import SpotFilm.model.Filmes;
 import SpotFilm.model.Genero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -41,11 +36,26 @@ public class ApiService {
     }
 
     //mudar o retorno de generos
-    public FilmeRespostaApi getFilmes(String url) {
+    public List<Filme> getFilmes(String url) {
         try {
-            FilmeRespostaApi apiResponse = restTemplate.getForObject(url, FilmeRespostaApi.class);
+            FilmesRespostaApi apiResponse = restTemplate.getForObject(url, FilmesRespostaApi.class);
+            List<Filme> filmesComGenero = new ArrayList<>();
             logger.info("Successfully retrieved data from TMDb");
-            return apiResponse;
+            Map<Integer, String> generoMap = converteGenerosParaMapa();
+            apiResponse.getResults().forEach(filme -> {
+                List<Genero> generos = filme.getGeneroIds().stream()
+                        .map(id -> new Genero(id, generoMap.get(id)))
+                        .collect(Collectors.toList());
+                filmesComGenero.add(new Filme(filme.getBackdropPath(),
+                                     generos,
+                                     filme.getId(),
+                                     filme.getOverview(),
+                                     filme.getPosterPath(),
+                                     filme.getReleaseDate(),
+                                     filme.getTitle(),
+                                     filme.getVoteAverage()));
+            });
+            return filmesComGenero;
         } catch (Exception e) {
             logger.error("Failed to retrieve data from TMDb", e);
             return null;
@@ -68,19 +78,19 @@ public class ApiService {
         return getFilme(url);
     }
 
-    public FilmeRespostaApi getFilmesPorTitulo(String titulo) {
+    public List<Filme> getFilmesPorTitulo(String titulo) {
         String url = String.format(urlBase+"search/movie?query=%s&language=pt-BR&api_key=%s", titulo, key);
         return getFilmes(url);
     }
 
     //recomendações baseadas no genero favorito
-    public FilmeRespostaApi getFilmesPorGenero(int generoId) {
+    public List<Filme> getFilmesPorGenero(Integer generoId) {
         String url = String.format(urlBase+"discover/movie?&language=pt-BR&api_key=%s&with_genres=%d", key, generoId);
         return getFilmes(url);
     }
 
     //recomendações baseadas em um filme
-    public FilmeRespostaApi getRecomendacaoPorFilme(long id) {
+    public List<Filme> getRecomendacaoPorFilme(long id) {
         String url = String.format(urlBase+"movie/%d/recommendations?&language=pt-BR&api_key=%s", id, key);
         return getFilmes(url);
     }
@@ -96,39 +106,16 @@ public class ApiService {
         return generos.stream().collect(Collectors.toMap(Genero::getId, genero -> genero));
     }
 
-    public Map<Integer, Genero> getMapGenero(List<Genero> generos){
-        return generos.stream().collect(Collectors.toMap(Genero::getId, genero -> genero));
+    public Map<Integer, String> converteGenerosParaMapa() {
+        GeneroRespostaApi generosResposta = getListaGenero();
+        return generosResposta.getGenres().stream()
+                .collect(Collectors.toMap(Genero::getId, Genero::getName));
     }
 
-    public List<FilmeComMapa> converteListaFilmes(List<Filmes> filmes, Map<Integer, Genero> generoMap) {
-        return filmes.stream()
-                .map(filme -> {
-                    FilmeComMapa filmeComMapa = new FilmeComMapa();
-                    filmeComMapa.setId(filme.getId());
-                    filmeComMapa.setTitle(filme.getTitle());
-                    filmeComMapa.setOverview(filme.getOverview());
-                    filmeComMapa.setReleaseDate(filme.getReleaseDate());
-                    filmeComMapa.setVoteAverage(filme.getVoteAverage());
-                    filmeComMapa.setBackdropPath(filme.getBackdropPath());
-                    filmeComMapa.setPosterPath(filme.getPosterPath());
-
-                    // Mapeia os genero_ids para objetos Genero usando o generoMap
-                    Map<Integer, Genero> generosMapeados = filme.getGenero_ids().stream()
-                            .filter(generoMap::containsKey)
-                            .collect(Collectors.toMap(id -> id, generoMap::get));
-
-                    filmeComMapa.setGeneros(generosMapeados);
-
-                    return filmeComMapa;
-                })
-                .collect(Collectors.toList());
-    }
-
-
-    public FilmeRespostaApi geraRecomendacoes(int genero1, int genero2){
-        FilmeRespostaApi filme = getFilmesPorGenero(genero1);
-        FilmeRespostaApi filme2 = getFilmesPorGenero(genero2);
-        FilmeRespostaApi filmesFiltrados = new FilmeRespostaApi();
+    public List<Filme> geraRecomendacoes(Integer genero1, Integer genero2){
+        List<Filme> filme = getFilmesPorGenero(genero1);
+        List<Filme> filme2 = getFilmesPorGenero(genero2);
+        List<Filme> filmesFiltrados = new ArrayList<>();
 
         int id_filme = 0;
         int escolhaGenero = 0;
@@ -137,14 +124,14 @@ public class ApiService {
 
         for (int i = 0; i < 10; i++) {
             escolhaGenero = random.nextInt(1,2);
-            id_filme = random.nextInt(filme.getTotal_results());
+            id_filme = random.nextInt(0, filme.size());
 
             if (escolhaGenero == 1){
-                filmesFiltrados.getResults().add(filme.getResults().get(id_filme));
-                filme.getResults().remove(id_filme);
+                filmesFiltrados.add(filme.get(id_filme));
+                filme.remove(id_filme);
             } else {
-                filmesFiltrados.getResults().add(filme2.getResults().get(id_filme));
-                filme2.getResults().remove(id_filme);
+                filmesFiltrados.add(filme2.get(id_filme));
+                filme2.remove(id_filme);
             }
         }
 
