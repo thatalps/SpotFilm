@@ -19,7 +19,7 @@ export function MoviePopupTabs({ id, name }: { id: number; name: string }) {
         </div>
       </TabsList>
       <TabsContent value="rating">
-        <MoviePopupRatingSection />
+        <MoviePopupRatingSection movieId={id} />
       </TabsContent>
       <TabsContent value="comment">
         <MoviePopupCommentSection id={id} />

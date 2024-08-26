@@ -18,7 +18,7 @@ export interface IGenre {
 export interface IMovie {
   releaseDate: string | null
   posterPath: string | null
-  voteAverage: number | null
+  voteAverage: number
   id: number
   title: string
   overview: string | null

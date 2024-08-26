@@ -68,7 +68,7 @@ export function Navbar() {
 
           {user?.name.length !== undefined ? (
             <>
-              <NavLink to={'./'}>Para você</NavLink>
+              <NavLink to={'./recomendation'}>Para você</NavLink>
               <NavLink to={'./profile'}>Perfil</NavLink>
               <Button
                 className={'text-base'}

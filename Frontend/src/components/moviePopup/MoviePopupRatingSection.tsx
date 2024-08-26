@@ -2,12 +2,21 @@ import { Stars } from '@/components/Stars.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { postMovieRating } from '@/api/movies/postMovieRating.ts'
 import { toast } from 'sonner'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
+import { getMovieRating } from '@/api/movies/getMovieRating.ts'
 
-export function MoviePopupRatingSection() {
+export function MoviePopupRatingSection({ movieId }: { movieId: number }) {
   const [rating, setRating] = useState<number>(0)
   const context = useContext(GlobalContext)
+
+  useEffect(() => {
+    console.log(movieId)
+    if (context.user)
+      getMovieRating({ idMovie: movieId, idUser: context.user.id }).then(
+        (res) => setRating(res),
+      )
+  }, [])
 
   async function postRate() {
     if (rating === 0) return

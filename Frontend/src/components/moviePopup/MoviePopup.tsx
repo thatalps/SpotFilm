@@ -2,7 +2,6 @@ import { DialogContent, DialogHeader } from '@/components/ui/dialog.tsx'
 import MovieBackground from '@/assets/backgroundHeader.png'
 import RandomMoviesPoster from '@/assets/randomMoviesPoster.jpg'
 import { ICardMovieDetails } from '@/types/interfaces.tsx'
-import { Badge } from '@/components/ui/badge.tsx'
 import { RadialChart } from '@/components/RadialChart.tsx'
 import { MoviePopupTabs } from '@/components/moviePopup/MoviePopupTabs.tsx'
 
@@ -18,7 +17,8 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
           {movie.backdropPath !== null ? (
             <img
               src={
-                movie.backdropPath !== null
+                movie.backdropPath !== null &&
+                !movie.backdropPath?.includes('null')
                   ? movie.backdropPath
                   : MovieBackground
               }
@@ -42,7 +42,7 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
           <picture className={'my-2 top-0 w-2/6'}>
             <img
               src={
-                movie.posterPath !== null
+                movie.posterPath !== null && !movie.posterPath?.includes('null')
                   ? movie.posterPath
                   : RandomMoviesPoster
               }
@@ -64,9 +64,7 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
                   {/* </div> */}
                 </div>
 
-                {movie.voteAverage && (
-                  <RadialChart rating={Math.round(movie.voteAverage)} />
-                )}
+                <RadialChart rating={Math.round(movie.voteAverage)} />
               </div>
 
               <p>

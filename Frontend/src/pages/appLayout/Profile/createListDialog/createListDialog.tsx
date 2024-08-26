@@ -135,6 +135,7 @@ export function CreateListDialog() {
               />
             </div>
             <label>Inicie a lista com um primeiro filme</label>
+
             <div className={'max-w-full text-black flex flex-col gap-5  mt-2'}>
               <DialogDropdown
                 selectDropdownMovie={selectDropdownMovie}
@@ -149,6 +150,7 @@ export function CreateListDialog() {
                 </span>
               )}
             </div>
+
             <Button
               disabled={isLoading}
               type={'submit'}

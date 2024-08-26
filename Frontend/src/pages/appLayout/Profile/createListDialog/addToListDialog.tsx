@@ -46,6 +46,7 @@ export function AddToListDialog({
   })
 
   useEffect(() => {
+    console.log(errors)
     if (errors.list) {
       toast.error('Preencha os campos!')
     }
@@ -59,8 +60,6 @@ export function AddToListDialog({
     setIsLoading(true)
     try {
       if (!user?.id) throw new Error('Usuário não logado.')
-
-      console.log(data)
 
       await addMovieToList({
         movieId: data.movieId,
