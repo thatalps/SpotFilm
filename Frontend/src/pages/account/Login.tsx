@@ -25,8 +25,7 @@ export function Login() {
 
   async function handleLoginSubmit(data: TLogin) {
     try {
-      const { id } = await LoginUser(data)
-      console.log(id)
+      const id = await LoginUser(data)
       const userProfile = await getUserProfile({ id })
       setUserData(userProfile)
       localStorage.setItem('userId', JSON.stringify(id))

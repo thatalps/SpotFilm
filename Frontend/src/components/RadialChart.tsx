@@ -33,7 +33,6 @@ export function RadialChart({ rating }: { rating: number }) {
 
   useEffect(() => {
     setPercentage(36 * rating)
-    console.log(rating > 0)
 
     if (rating < 5) {
       setColor('var(--color-bad)')

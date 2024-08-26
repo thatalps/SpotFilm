@@ -1,7 +1,8 @@
-import { ICreateListSchema, IMovie } from '@/types/interfaces.tsx'
+import { IMovie } from '@/types/interfaces.tsx'
 import { Clapperboard } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area.tsx'
 import { toast } from 'sonner'
+import RanddomMoviesPoster from '@/assets/randomMoviesPoster.jpg'
 
 export function SearchResult({
   movies,
@@ -45,18 +46,22 @@ function ResultEmpty() {
   )
 }
 
-function ResultItem({
-  movie: { poster_path, title },
-}: {
-  movie: Pick<IMovie, 'poster_path' | 'title'>
-}) {
+function ResultItem({ movie }: { movie: IMovie }) {
   return (
     <div className={'flex cursor-pointer p-3 rounded-md hover:bg-gray-100 '}>
       <picture className={'max-w-[50px] block'}>
-        <img className={'w-full h-full block'} src={poster_path || ''} alt="" />
+        <img
+          className={'w-full h-full block'}
+          src={
+            movie.posterPath !== null && !movie.posterPath?.includes('null')
+              ? movie.posterPath
+              : RanddomMoviesPoster
+          }
+          alt=""
+        />
       </picture>
 
-      <span className={'p-4'}>{title}</span>
+      <span className={'p-4'}>{movie.title}</span>
     </div>
   )
 }

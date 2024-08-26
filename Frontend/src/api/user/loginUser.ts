@@ -2,7 +2,7 @@ import { apiAxios } from '../../../axios.config.ts'
 import { IDataId } from '@/types/interfaces.tsx'
 import { TLogin } from '@/types/types.tsx'
 
-export async function LoginUser(data: TLogin): Promise<IDataId> {
+export async function LoginUser(data: TLogin): Promise<number> {
   const response = await apiAxios.post<TLogin>(`usuarios/login`, {
     email: data.email,
     senha: data.password,
@@ -12,7 +12,5 @@ export async function LoginUser(data: TLogin): Promise<IDataId> {
     throw new Error('Falha ao logar o usuário')
   }
 
-  return {
-    id: response.data.data,
-  }
+  return response.data.data
 }
