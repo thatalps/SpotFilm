@@ -38,8 +38,14 @@ public class UsuarioController {
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(@RequestBody Usuario usuario)
     {
+        Usuario usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
+
+        if(usuarioExistente == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario já existente!");
+
         usuario.setSenha(autenticador.criptografar(usuario.getSenha()));
         usuarioRepository.save(usuario);
+
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cadastro bem-sucedido");
     }
 
@@ -54,7 +60,7 @@ public class UsuarioController {
 
         if(usuario == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    new ApiResposta<>("Credenciais erradas!", null)
+                    new ApiResposta<>("E-mail incorreto!", null)
             );
 
         boolean autenticado = autenticador.autenticarUsuario(email, senha, usuario);
