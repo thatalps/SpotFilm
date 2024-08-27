@@ -30,7 +30,7 @@ public class AvaliacaoController {
     }
 
     @GetMapping("/buscar/")
-    public ResponseEntity<ApiResposta> postaAvaliacao(@RequestParam int idFilme,
+    public ResponseEntity<ApiResposta> buscaAvaliacao(@RequestParam int idFilme,
                                                       @RequestParam int idUsuario)
     {
         int resposta = avaliacaoService.getAvaliacao(idFilme, idUsuario);
