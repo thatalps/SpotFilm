@@ -57,6 +57,7 @@ export function ContextProvider({ children }) {
   function logout() {
     localStorage.clear()
     setUser(undefined)
+    setUserLists(undefined)
   }
 
   async function getAllUserList() {

@@ -13,6 +13,11 @@ export function MoviePopupCommentSection({ id }: { id: number }) {
     getMoviesComments({ id }).then((res) => setComments(res))
   }, [])
 
+  useEffect(() => {
+    console.log('comments')
+    console.log(comments)
+  }, [comments])
+
   if (!user) {
     return (
       <div className={'min-h-48 flex justify-center items-center'}>
@@ -32,10 +37,15 @@ export function MoviePopupCommentSection({ id }: { id: number }) {
 
       {user && (
         <UserComment
-          setComment={(comment) =>
-            setComments((prevState) => [comment, ...prevState])
-          }
-          user={user}
+          setComment={(comment) => {
+            console.log(comments)
+            if (comments?.length !== 0) {
+              setComments((prevState) => [comment, ...prevState])
+            } else {
+              setComments([comment])
+            }
+          }}
+          movieId={id}
         />
       )}
 

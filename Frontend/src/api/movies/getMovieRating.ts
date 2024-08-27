@@ -5,9 +5,8 @@ export async function getMovieRating(userRating: {
   idUser: number
 }) {
   const response = await apiAxios.get(
-    `/avaliacao/buscar/?idFilme=${userRating.idMovie}=&idUsuario=${userRating.idUser}`,
+    `/avaliacao/buscar/?idFilme=${userRating.idMovie}&idUsuario=${userRating.idUser}`,
   )
 
-  console.log(response)
   return response.data.data
 }
