@@ -11,10 +11,11 @@ export function MoviePopupRatingSection({ movieId }: { movieId: number }) {
   const context = useContext(GlobalContext)
 
   useEffect(() => {
-    console.log(movieId)
     if (context.user)
       getMovieRating({ idMovie: movieId, idUser: context.user.id }).then(
-        (res) => setRating(res),
+        (res) => {
+          if (res) setRating(res)
+        },
       )
   }, [])
 
@@ -25,7 +26,7 @@ export function MoviePopupRatingSection({ movieId }: { movieId: number }) {
       await postMovieRating({
         rating,
         idUser: context.user!.id,
-        idMovie: 2,
+        idMovie: movieId,
       })
       toast.success('Avaliado com sucesso')
     } catch (e) {

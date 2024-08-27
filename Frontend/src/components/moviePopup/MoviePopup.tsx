@@ -14,12 +14,12 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
     >
       <DialogHeader className={'justify-start'}>
         <picture className={'relative'}>
-          {movie.backdropPath !== null ? (
+          {movie.backdrop_path !== null ? (
             <img
               src={
-                movie.backdropPath !== null &&
-                !movie.backdropPath?.includes('null')
-                  ? movie.backdropPath
+                movie.backdrop_path !== null &&
+                !movie.backdrop_path?.includes('null')
+                  ? movie.backdrop_path
                   : MovieBackground
               }
               alt={'Fundo do filme'}
@@ -42,8 +42,9 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
           <picture className={'my-2 top-0 w-2/6'}>
             <img
               src={
-                movie.posterPath !== null && !movie.posterPath?.includes('null')
-                  ? movie.posterPath
+                movie.poster_path !== null &&
+                !movie.poster_path?.includes('null')
+                  ? movie.poster_path
                   : RandomMoviesPoster
               }
               className={'h-[15.625rem] rounded-lg object-cover w-full'}
@@ -64,7 +65,7 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
                   {/* </div> */}
                 </div>
 
-                <RadialChart rating={Math.round(movie.voteAverage)} />
+                <RadialChart rating={Math.round(movie.vote_average)} />
               </div>
 
               <p>

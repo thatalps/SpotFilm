@@ -12,12 +12,17 @@ export async function postMovieComment({
   movieId: number
 }) {
   const response = await apiAxios.post('comentario/postar', {
-    data: {
-      dataCriacao: comment.created_at,
-      conteudo: comment.text,
-      idUsuario: userId,
-      idFilme: movieId,
-    },
+    dataCriacao: comment.created_at,
+    conteudo: comment.text,
+    idUsuario: userId,
+    idFilme: movieId,
+  })
+
+  console.log('post comment')
+  console.log({
+    conteudo: comment.text,
+    idUsuario: userId,
+    idFilme: movieId,
   })
 
   commentsMock.push(comment)

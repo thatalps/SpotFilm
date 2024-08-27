@@ -12,7 +12,7 @@ export function AllMovies() {
       <div className={'pb-3 flex justify-between'}>
         <h2 className={'text-2xl font-bold mb-3'}>{state.label}</h2>
 
-        <Button onClick={() => navigate(-1)}>
+        <Button onClick={() => navigate('/')}>
           <ChevronLeft size={16} />
           Voltar
         </Button>

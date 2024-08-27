@@ -1,19 +1,21 @@
 import { Button } from '@/components/ui/button.tsx'
 import { IComment, IUserProfile } from '@/types/interfaces.tsx'
 import { postMovieComment } from '@/api/movies/postMovieComment.ts'
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { toast } from 'sonner'
+import { GlobalContext } from '@/context/GlobalContext.tsx'
 
 interface IUserCommentProps {
   setComment: (IComment) => void
-  user: IUserProfile
+  movieId: number
 }
 
-export function UserComment({ setComment, user }: IUserCommentProps) {
+export function UserComment({ setComment, movieId }: IUserCommentProps) {
   const inputComment = useRef<HTMLTextAreaElement>(null)
+  const { user } = useContext(GlobalContext)
   async function postUserComment(e) {
     if (!inputComment.current) return
-    if (!user.name) return
+    if (!user?.name) return
 
     e.preventDefault()
     const commentText: string = inputComment.current.value
@@ -24,15 +26,19 @@ export function UserComment({ setComment, user }: IUserCommentProps) {
 
     const comment: IComment = {
       id: null,
-      created_at: new Date(),
+      created_at: new Date().toISOString(),
       text: commentText,
-      rating: 4,
       name: user.name,
     }
     toast.success('Comentário enviado com sucesso!')
 
     try {
-      await postMovieComment(comment)
+      await postMovieComment({
+        comment,
+        userId: user.id,
+        movieId,
+      })
+      console.log(comment)
       setComment(comment)
     } catch (e) {
       toast.error(e.message)

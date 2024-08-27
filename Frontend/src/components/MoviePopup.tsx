@@ -11,7 +11,9 @@ import { AllComments } from '@/components/Comments/AllComments.tsx'
 import { UserComment } from '@/components/Comments/UserComment.tsx'
 import { ICardMovieDetails, IComment } from '@/types/interfaces.tsx'
 import { useContext, useEffect, useState } from 'react'
-import { getMoviesComments } from '@/api/movies/getMoviesComments.ts'
+import {
+  getMoviesComments,
+} from '@/api/movies/getMoviesComments.ts'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
 import { Badge } from '@/components/ui/badge'
 import { Component } from '@/components/RadialChart.tsx'

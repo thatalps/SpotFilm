@@ -16,21 +16,20 @@ export interface IGenre {
 }
 
 export interface IMovie {
-  releaseDate: string | null
-  posterPath: string | null
-  voteAverage: number
+  release_date: string | null
+  poster_path: string | null
+  vote_average: number
   id: number
   title: string
   overview: string | null
   generos: IGenre[] | null
-  backdropPath: string | null
+  backdrop_path: string | null
 }
 
 export interface IComment {
   id: number | null
-  created_at: Date
+  created_at: string
   text: string
-  rating: number
   name: string
 }
 
