@@ -4,6 +4,7 @@ import RandomMoviesPoster from '@/assets/randomMoviesPoster.jpg'
 import { ICardMovieDetails } from '@/types/interfaces.tsx'
 import { RadialChart } from '@/components/RadialChart.tsx'
 import { MoviePopupTabs } from '@/components/moviePopup/MoviePopupTabs.tsx'
+import {Badge} from "lucide-react";
 
 export function MoviePopup({ movie }: ICardMovieDetails) {
   return (
@@ -57,12 +58,12 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
                 <div>
                   <h2 className={'font-bold text-2xl py-2'}>{movie.title}</h2>
 
-                  {/* <div className={'flex gap-2 my-2'}> */}
-                  {/*  {movie.generos && */}
-                  {/*    movie.generos.map((genre) => { */}
-                  {/*      return <Badge variant={'secondary'}>{genre.name}</Badge> */}
-                  {/*    })} */}
-                  {/* </div> */}
+                  <div className={'flex gap-2 my-2'}>
+                    {movie.generos &&
+                      movie.generos.map((genre) => {
+                        return <Badge variant={'secondary'}>{genre.name}</Badge>
+                      })}
+                  </div>
                 </div>
 
                 <RadialChart rating={Math.round(movie.vote_average)} />

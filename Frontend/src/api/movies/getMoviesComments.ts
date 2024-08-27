@@ -14,7 +14,7 @@ export async function getMoviesComments(movieId: IDataId): Promise<IComment[]> {
       id: comment.id,
       created_at: comment.dataCriacao,
       text: comment.conteudo,
-      name: comment.conteudo,
+      name: comment.nomeUsuario,
     }
   })
 
