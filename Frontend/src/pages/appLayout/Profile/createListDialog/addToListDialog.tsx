@@ -13,7 +13,7 @@ import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
 import { toast } from 'sonner'
 import { addToListSchema } from '@/types/schemas.tsx'
-import { IAddtoListSchema } from '@/types/interfaces.tsx'
+import { IAddtoListSchema, IMovie } from '@/types/interfaces.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,24 +23,21 @@ import {
 import { addMovieToList } from '@/api/list/addMovietoList.ts'
 import { getAllLists } from '@/api/list/getAllLists.ts'
 
-export function AddToListDialog({
-  movie: { id, name },
-}: {
-  movie: { id: number; name: string }
-}) {
+export function AddToListDialog({ movie }: { movie: IMovie }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [listTitle, setListTitle] = useState()
   const { user, userLists, createUserLists } = useContext(GlobalContext)
   const {
     control,
     setValue,
     handleSubmit,
     reset,
-    watch,
+      watch,
     formState: { errors },
   } = useForm<IAddtoListSchema>({
     resolver: zodResolver(addToListSchema),
     defaultValues: {
-      movieId: id,
+      movieId: movie.id,
     },
     mode: 'onSubmit',
   })
@@ -53,8 +50,8 @@ export function AddToListDialog({
   }, [errors])
 
   useEffect(() => {
-    console.log(userLists)
-  }, [userLists])
+    console.log(watch())
+  }, [watch()])
 
   function resetDialog() {
     reset()
@@ -80,6 +77,14 @@ export function AddToListDialog({
     } finally {
       setIsLoading(false)
     }
+  }
+
+  function handleDropdownClick(list) {
+    setValue('list', {
+      id: list.id,
+      title: list.title,
+    })
+    setListTitle(list.title)
   }
 
   return (
@@ -116,12 +121,7 @@ export function AddToListDialog({
                         {userLists?.map((list) => (
                           <DropdownMenuItem
                             className={'cursor-pointer'}
-                            onClick={() =>
-                              setValue('list', {
-                                id: list.id,
-                                title: list.title,
-                              })
-                            }
+                            onClick={() => handleDropdownClick(list)}
                           >
                             {list.title}
                           </DropdownMenuItem>
@@ -134,13 +134,15 @@ export function AddToListDialog({
                 control={control}
               />
 
-              <span className={'text-yellow-500 italic'}>
-                {watch('list.title')}
-              </span>
+              <span className={'text-yellow-500 italic'}>{listTitle}</span>
             </div>
             <div className={'max-w-full  flex flex-col gap-5  mt-4'}>
               <label>Inicie a lista com um primeiro filme</label>
-              <Input className={'text-black'} value={name} disabled={true} />
+              <Input
+                className={'text-black'}
+                value={movie.title}
+                disabled={true}
+              />
             </div>
             <Button
               disabled={isLoading}

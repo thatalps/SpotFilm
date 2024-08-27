@@ -4,7 +4,7 @@ import RandomMoviesPoster from '@/assets/randomMoviesPoster.jpg'
 import { ICardMovieDetails } from '@/types/interfaces.tsx'
 import { RadialChart } from '@/components/RadialChart.tsx'
 import { MoviePopupTabs } from '@/components/moviePopup/MoviePopupTabs.tsx'
-import {Badge} from "lucide-react";
+import { Badge } from 'lucide-react'
 
 export function MoviePopup({ movie }: ICardMovieDetails) {
   return (
@@ -78,7 +78,7 @@ export function MoviePopup({ movie }: ICardMovieDetails) {
           </div>
         </div>
 
-        <MoviePopupTabs id={movie.id} name={movie.title} />
+        <MoviePopupTabs movie={movie} />
       </DialogHeader>
     </DialogContent>
   )

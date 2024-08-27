@@ -53,8 +53,8 @@ function ResultItem({ movie }: { movie: IMovie }) {
         <img
           className={'w-full h-full block'}
           src={
-            movie.posterPath !== null && !movie.posterPath?.includes('null')
-              ? movie.posterPath
+            movie.poster_path !== null && !movie.poster_path?.includes('null')
+              ? movie.poster_path
               : RanddomMoviesPoster
           }
           alt=""

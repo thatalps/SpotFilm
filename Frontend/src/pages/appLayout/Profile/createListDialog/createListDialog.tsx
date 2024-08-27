@@ -19,7 +19,7 @@ import { createListSchema } from '@/types/schemas.tsx'
 import { ICreateListSchema, IMovie } from '@/types/interfaces.tsx'
 import { useNavigate } from 'react-router-dom'
 
-export function CreateListDialog() {
+export function CreateListDialog({ currMovie }: { currMovie?: IMovie }) {
   const [selectedMovie, setSelectedMovie] = useState<IMovie | undefined>(
     undefined,
   )
@@ -31,6 +31,7 @@ export function CreateListDialog() {
     setValue,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ICreateListSchema>({
     resolver: zodResolver(createListSchema),
@@ -52,7 +53,7 @@ export function CreateListDialog() {
     reset()
   }
 
-  function selectDropdownMovie({ movie }: IMovie) {
+  function selectDropdownMovie({ movie }: { movie: IMovie }) {
     setSelectedMovie(movie)
     setValue('movie', {
       id: movie.id,
@@ -61,12 +62,18 @@ export function CreateListDialog() {
     listTitle.current?.focus()
   }
 
+  useEffect(() => {
+    if (currMovie) {
+      selectDropdownMovie({ movie: currMovie })
+    }
+  }, [currMovie])
+
   async function handleCreateList(data: ICreateListSchema) {
     setIsLoading(true)
     try {
       if (!user?.id) throw new Error('Usuário não logado.')
 
-      const createdList = await createCustomList({
+      const createdListId = await createCustomList({
         title: data.title,
         userId: user.id,
         movieId: data.movie.id,
@@ -77,7 +84,7 @@ export function CreateListDialog() {
       })
 
       addDataToUserLists({
-        id: createdList.id,
+        id: createdListId,
         title: data.title,
         movies: [selectedMovie!],
       })
@@ -134,27 +141,47 @@ export function CreateListDialog() {
                 control={control}
               />
             </div>
-            <label>Inicie a lista com um primeiro filme</label>
 
             <div className={'max-w-full text-black flex flex-col gap-5  mt-2'}>
-              <DialogDropdown
-                selectDropdownMovie={selectDropdownMovie}
-                isMovieSelected={!!selectedMovie}
-              />
-              {selectedMovie && (
-                <span className={'text-white'}>
-                  Filme Selecionado!{' '}
-                  <span className={'text-yellow-500'}>
-                    {selectedMovie.title}
-                  </span>
-                </span>
+              {!currMovie && (
+                <>
+                  <label className={'text-white'}>
+                    Inicie a lista com um primeiro filme
+                  </label>
+
+                  <DialogDropdown
+                    selectDropdownMovie={selectDropdownMovie}
+                    isMovieSelected={!!selectedMovie}
+                  />
+                  {selectedMovie && (
+                    <span className={'text-white'}>
+                      Filme Selecionado!{' '}
+                      <span className={'text-yellow-500'}>
+                        {selectedMovie.title}
+                      </span>
+                    </span>
+                  )}
+                </>
+              )}
+
+              {currMovie && (
+                <div className={'max-w-full  flex flex-col gap-5  mt-4'}>
+                  <label className={'text-white'}>
+                    Inicie a lista com um primeiro filme
+                  </label>
+
+                  <Input
+                    className={'text-black'}
+                    value={currMovie.title}
+                    disabled={true}
+                  />
+                </div>
               )}
             </div>
 
             <Button
               disabled={isLoading}
               type={'submit'}
-              onSubmit={handleSubmit(handleCreateList)}
               variant={'secondary'}
               className={'w-1/3 self-end mt-4'}
             >

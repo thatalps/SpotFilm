@@ -9,7 +9,7 @@ interface IcreateCustomListProps {
 
 export async function createCustomList(
   data: IcreateCustomListProps,
-): Promise<IDataId> {
+): Promise<number> {
   const response = await apiAxios.post(
     `lista/criacao/?nomeLista=${data.title}&idFilme=${data.movieId}&idUsuario=${data.userId}`,
     data,
@@ -23,5 +23,5 @@ export async function createCustomList(
     throw new Error('Tente novamente mais tarde.')
   }
 
-  return response.data
+  return response.data.data
 }

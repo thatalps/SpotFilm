@@ -33,7 +33,7 @@ export function ContextProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    if (!!userLists && user) {
+    if (!userLists && user) {
       getAllUserList()
     }
   }, [user])
