@@ -52,6 +52,10 @@ export function AddToListDialog({
     }
   }, [errors])
 
+  useEffect(() => {
+    console.log(userLists)
+  }, [userLists])
+
   function resetDialog() {
     reset()
   }

@@ -73,7 +73,10 @@ export function Navbar() {
               <Button
                 className={'text-base'}
                 variant={'ghost'}
-                onClick={() => logout()}
+                onClick={() => {
+                  navigate('/account/login')
+                  logout()
+                }}
               >
                 Sair
               </Button>
