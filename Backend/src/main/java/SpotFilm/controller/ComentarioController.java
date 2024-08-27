@@ -1,7 +1,10 @@
 package SpotFilm.controller;
 
+import SpotFilm.dto.ComentarioResposta;
 import SpotFilm.model.Comentario;
+import SpotFilm.model.Usuario;
 import SpotFilm.repository.ComentarioRepository;
+import SpotFilm.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,8 @@ public class ComentarioController {
 
     @Autowired
     ComentarioRepository comentarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @PostMapping("/postar")
     public ResponseEntity<String> postarComentario(@RequestBody Comentario comentario) {
@@ -26,21 +31,45 @@ public class ComentarioController {
     }
 
     @GetMapping("/bucarTodos")
-    public ResponseEntity<List<Comentario>> buscarTodosComentarios(){
+    public ResponseEntity<List<ComentarioResposta>> buscarTodosComentarios(){
+        List<ComentarioResposta> comentariosComNome = new ArrayList<>();
         List<Comentario> comentarios = comentarioRepository.findAll();
-        if(comentarios.isEmpty() || comentarios == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<Comentario>());
+        comentarios.forEach(comentario -> {
+            Usuario usuario = usuarioRepository.findById(comentario.idUsuario);
+            comentariosComNome.add(new ComentarioResposta(
+                    comentario.id,
+                    comentario.dataCriacao,
+                    comentario.conteudo,
+                    comentario.idFilme,
+                    comentario.idUsuario,
+                    usuario.getNome()
+            ));
+        });
+        if(comentariosComNome.isEmpty() || comentariosComNome == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<ComentarioResposta>());
         }
-        return ResponseEntity.ok(comentarios);
+        return ResponseEntity.ok(comentariosComNome);
     }
 
     @GetMapping("/buscarPorFilme/{idFilme}")
-    public ResponseEntity<List<Comentario>> buscarPorFilme(@PathVariable Integer idFilme) {
+    public ResponseEntity<List<ComentarioResposta>> buscarPorFilme(@PathVariable Integer idFilme) {
         List<Comentario> comentarios = comentarioRepository.findByIdFilme(idFilme);
-        if(comentarios.isEmpty() || comentarios == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<Comentario>());
+        List<ComentarioResposta> comentariosComNome = new ArrayList<>();
+        comentarios.forEach(comentario -> {
+            Usuario usuario = usuarioRepository.findById(comentario.idUsuario);
+            comentariosComNome.add(new ComentarioResposta(
+                    comentario.id,
+                    comentario.dataCriacao,
+                    comentario.conteudo,
+                    comentario.idFilme,
+                    comentario.idUsuario,
+                    usuario.getNome()
+            ));
+        });
+        if(comentariosComNome.isEmpty() || comentariosComNome == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<ComentarioResposta>());
         }
-        return ResponseEntity.ok(comentarios);
+        return ResponseEntity.ok(comentariosComNome);
     }
 
 }
