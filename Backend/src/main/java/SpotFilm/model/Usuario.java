@@ -48,11 +48,6 @@ public class Usuario extends SpotFilm.model.Admin
     @Column(name = "genero_preferido2")
     private Integer generoPreferido2;
 
-    @Getter
-    @Setter
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Avaliacao> avaliacoes;
-
     protected Usuario(){
         super(0);
     }
