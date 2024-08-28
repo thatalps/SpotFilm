@@ -32,7 +32,7 @@
   - Concorrência (limite de requisições simultâneas) -> 100
  
 - **SLA 3:**
-  - Latência -> 1.72s
+  - Latência -> 1720ms
   - Vazão -> 7.920 requisições por minuto
   - Concorrência (limite de requisições simultâneas) -> 500
 
