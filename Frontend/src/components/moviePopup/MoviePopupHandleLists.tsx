@@ -3,12 +3,9 @@ import * as React from 'react'
 import { AddToListDialog } from '@/pages/appLayout/Profile/createListDialog/addToListDialog.tsx'
 import { useContext } from 'react'
 import { GlobalContext } from '@/context/GlobalContext.tsx'
+import { IMovie } from '@/types/interfaces.tsx'
 
-export function MoviePopupHandleLists({
-  movie,
-}: {
-  movie: { id: number; name: string }
-}) {
+export function MoviePopupHandleLists({ movie }: { movie: IMovie }) {
   const { user } = useContext(GlobalContext)
 
   if (!user) {
@@ -21,7 +18,7 @@ export function MoviePopupHandleLists({
 
   return (
     <div className={'p-6 flex flex-col gap-4'}>
-      <CreateListDialog currMovie={movie} />
+      {/*<CreateListDialog currMovie={movie} />*/}
       <AddToListDialog movie={movie} />
     </div>
   )

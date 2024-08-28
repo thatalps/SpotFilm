@@ -3,6 +3,7 @@ import { IGenre, IList, IUserProfile } from '@/types/interfaces.tsx'
 import { getUserProfile } from '@/api/user/getUserProfile.ts'
 import { getAllGenres } from '@/api/movies/getAllGenres.ts'
 import { getAllLists } from '@/api/list/getAllLists.ts'
+import { useNavigate } from 'react-router-dom'
 
 interface IGlobalContext {
   setUserData: (data: IUserProfile) => void

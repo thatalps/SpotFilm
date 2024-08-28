@@ -7,8 +7,9 @@ import {
 import { MoviePopupRatingSection } from '@/components/moviePopup/MoviePopupRatingSection.tsx'
 import { MoviePopupCommentSection } from '@/components/moviePopup/MoviePopupCommentSection.tsx'
 import { MoviePopupHandleLists } from '@/components/moviePopup/MoviePopupHandleLists.tsx'
+import { IMovie } from '@/types/interfaces.tsx'
 
-export function MoviePopupTabs({ id, name }: { id: number; name: string }) {
+export function MoviePopupTabs({ movie }: { movie: IMovie }) {
   return (
     <Tabs defaultValue="comment" className="w-full">
       <TabsList className={'flex justify-center bg-transparent'}>
@@ -19,13 +20,13 @@ export function MoviePopupTabs({ id, name }: { id: number; name: string }) {
         </div>
       </TabsList>
       <TabsContent value="rating">
-        <MoviePopupRatingSection movieId={id} />
+        <MoviePopupRatingSection movieId={movie.id} />
       </TabsContent>
       <TabsContent value="comment">
-        <MoviePopupCommentSection id={id} />
+        <MoviePopupCommentSection id={movie.id} />
       </TabsContent>
       <TabsContent value="list">
-        <MoviePopupHandleLists movie={{ id, name }} />
+        <MoviePopupHandleLists movie={movie} />
       </TabsContent>
     </Tabs>
   )

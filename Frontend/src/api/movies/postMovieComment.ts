@@ -18,12 +18,6 @@ export async function postMovieComment({
     idFilme: movieId,
   })
 
-  console.log('post comment')
-  console.log({
-    conteudo: comment.text,
-    idUsuario: userId,
-    idFilme: movieId,
-  })
 
   commentsMock.push(comment)
 
