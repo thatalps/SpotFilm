@@ -21,7 +21,7 @@
   - Memória: 16GB DDR5
   - MySQL
  
--  **SLA 1:**
+- **SLA 1:**
   - Latência -> 99.89ms
   - Vazão -> 4.618 requisições por minuto
   - Concorrência (limite de requisições simultâneas) -> 20
@@ -31,7 +31,7 @@
   - Vazão -> 7.779,6 requisições por segundo
   - Concorrência (limite de requisições simultâneas) -> 100
  
- - **SLA 3:**
+- **SLA 3:**
   - Latência -> 1.72s
   - Vazão -> 7.920 requisições por minuto
   - Concorrência (limite de requisições simultâneas) -> 500
