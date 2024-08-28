@@ -86,7 +86,7 @@
 - DTO com usuário e as informações de comentários.
 
 
-- **Gráficos**
+## Gráficos
 ![1](https://github.com/user-attachments/assets/54b46ea3-1108-492f-810c-faf1498a9139)
 ![2](https://github.com/user-attachments/assets/692d8aa8-4958-4c77-865d-1352583cad5a)
 
