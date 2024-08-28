@@ -31,12 +31,12 @@
   - Vazão -> 7.779,6 requisições por segundo
   - Concorrência (limite de requisições simultâneas) -> 100
  
-- **SLA 3:**
+ - **SLA 3:**
   - Latência -> 1.72s
   - Vazão -> 7.920 requisições por minuto
   - Concorrência (limite de requisições simultâneas) -> 500
 
- - **Métricas de Teste de Carga:**
+- **Métricas de Teste de Carga:**
   - threshold -> 500ms
 
 - **Potenciais gargalos do sistema:**
